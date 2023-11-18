@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.anilibrary.ui.home.HomeFragment"
+        android:name="com.example.anilibrary.ui.fragment.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_explore"
-        android:name="com.example.anilibrary.ui.explore.ExploreFragment"
+        android:name="com.example.anilibrary.ui.fragment.ExploreFragment"
         android:label="@string/title_explore"
         tools:layout="@layout/fragment_explore" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.anilibrary.ui.profile.ProfileFragment"
+        android:name="com.example.anilibrary.ui.fragment.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
