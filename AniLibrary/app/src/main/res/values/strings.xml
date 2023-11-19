@@ -3,4 +3,12 @@
     <string name="title_home">Home</string>
     <string name="title_explore">Explore</string>
     <string name="title_profile">Profile</string>
+
+    <!--    Home Layout-->
+    <string name="hyphen">-</string>
+
+    <!--    CardView Vertical-->
+    <string name="tv_episode_1">(</string>
+    <string name="tv_episode_2">Eps)</string>
+    <string name="rating_star">★</string>
 </resources>
