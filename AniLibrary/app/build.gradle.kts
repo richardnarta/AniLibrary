@@ -78,4 +78,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.15.0")
 }
