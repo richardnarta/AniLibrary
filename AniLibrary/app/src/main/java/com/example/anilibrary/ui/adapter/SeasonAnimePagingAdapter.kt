@@ -12,6 +12,7 @@ import com.example.anilibrary.R
 import com.example.anilibrary.databinding.RvItemHomeBinding
 import com.example.anilibrary.model.data.pojo.AnimeNode
 import com.example.anilibrary.ui.fragment.HomeFragment
+import java.util.Locale
 
 class SeasonAnimePagingAdapter(private val fragment: HomeFragment): PagingDataAdapter<AnimeNode, SeasonAnimePagingAdapter.AnimeViewHolder>(diffCallback) {
 
@@ -47,7 +48,11 @@ class SeasonAnimePagingAdapter(private val fragment: HomeFragment): PagingDataAd
                 currentAnime?.mediaType=="tv"){
                 tvType.text = currentAnime.mediaType?.uppercase()
             }else{
-                tvType.text = currentAnime?.mediaType?.capitalize()
+                tvType.text = currentAnime?.mediaType?.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString()
+                }
             }
 
             if(currentAnime?.numEpisodes==0 || currentAnime?.numEpisodes==null){

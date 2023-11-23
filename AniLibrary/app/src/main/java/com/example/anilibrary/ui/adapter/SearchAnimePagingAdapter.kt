@@ -12,6 +12,7 @@ import com.example.anilibrary.R
 import com.example.anilibrary.databinding.RvItemExploreBinding
 import com.example.anilibrary.model.data.pojo.AnimeNode
 import com.example.anilibrary.ui.fragment.ExploreFragment
+import java.util.Locale
 
 class SearchAnimePagingAdapter(private val fragment:ExploreFragment): PagingDataAdapter<AnimeNode, SearchAnimePagingAdapter.AnimeViewHolder>(diffCallback) {
 
@@ -44,7 +45,11 @@ class SearchAnimePagingAdapter(private val fragment:ExploreFragment): PagingData
             if(currentAnime?.startSeason?.season == "" || currentAnime?.startSeason?.season == null){
                 tvSeason.text = "??"
             }else{
-                tvSeason.text = currentAnime.startSeason?.season?.capitalize()
+                tvSeason.text = currentAnime.startSeason?.season?.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString()
+                }
             }
 
             if(currentAnime?.startSeason?.year == null){
@@ -58,7 +63,11 @@ class SearchAnimePagingAdapter(private val fragment:ExploreFragment): PagingData
                 currentAnime?.mediaType=="tv"){
                 tvType.text = currentAnime.mediaType?.uppercase()
             }else{
-                tvType.text = currentAnime?.mediaType?.capitalize()
+                tvType.text = currentAnime?.mediaType?.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString()
+                }
             }
 
             if(currentAnime?.numEpisodes==0 || currentAnime?.numEpisodes==null){

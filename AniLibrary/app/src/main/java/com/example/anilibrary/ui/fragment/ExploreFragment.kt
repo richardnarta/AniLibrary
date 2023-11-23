@@ -1,7 +1,6 @@
 package com.example.anilibrary.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.example.anilibrary.databinding.FragmentExploreBinding
@@ -134,7 +134,7 @@ class ExploreFragment : Fragment() {
         animeAdapter.setOnClickListener(object :
             SearchAnimePagingAdapter.OnClickListener{
             override fun onClick(position: Int, model: AnimeNode) {
-                Log.d("ID anime","${model.id}")
+                findNavController().navigate(ExploreFragmentDirections.actionNavigationExploreToNavigationDetail(model.id!!))
             }
         })
     }

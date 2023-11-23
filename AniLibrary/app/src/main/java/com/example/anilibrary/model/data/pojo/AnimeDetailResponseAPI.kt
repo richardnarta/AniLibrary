@@ -21,6 +21,9 @@ data class AnimeDetailResponseAPI(
     @SerializedName("mean")
     var rating : Float? = null,
 
+    @SerializedName("rank")
+    var rank : Int? = null,
+
     @SerializedName("num_scoring_users")
     var numUsers : Int? = null,
 
@@ -29,6 +32,9 @@ data class AnimeDetailResponseAPI(
 
     @SerializedName("status")
     var status : String? = null,
+
+    @SerializedName("source")
+    var source : String? = null,
 
     @SerializedName("genres")
     var genre : ArrayList<AnimeGenre>? = arrayListOf(),
