@@ -13,4 +13,6 @@
 
     <string name="rto">Connection Error</string>
     <string name="retry">Retry</string>
+
+    <string name="dummy_rating">★ 8.06</string>
 </resources>

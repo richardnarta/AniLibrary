@@ -43,7 +43,7 @@
         android:id="@+id/spinnerSeason"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:background="@drawable/spinner"
+        android:background="@drawable/rounded_rect"
         android:layout_marginHorizontal="15dp"
         android:foreground="@drawable/arrow_bottom"
         android:foregroundGravity="right|center_vertical"

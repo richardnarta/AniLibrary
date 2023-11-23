@@ -11,6 +11,8 @@
     <color name="purple_10_transparent">#BB5140AC</color>
     <color name="purple_30">#FF403286</color>
     <color name="purple_10">#FF5140AC</color>
+    <color name="purple_cv">#FFf2f0ff</color>
+    <color name="grey_cv">#FF424242</color>
     <color name="grey">#FFDDDDDD</color>
     <color name="grey_transparent">#66DDDDDD</color>
     <color name="transparent">#00000000</color>

@@ -9,14 +9,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.anilibrary.R
-import com.example.anilibrary.databinding.RvItemHomeBinding
+import com.example.anilibrary.databinding.RvItemExploreBinding
 import com.example.anilibrary.model.data.pojo.AnimeNode
-import com.example.anilibrary.ui.fragment.HomeFragment
+import com.example.anilibrary.ui.fragment.ExploreFragment
 
-class SeasonAnimePagingAdapter(private val fragment: HomeFragment): PagingDataAdapter<AnimeNode, SeasonAnimePagingAdapter.AnimeViewHolder>(diffCallback) {
+class SearchAnimePagingAdapter(private val fragment:ExploreFragment): PagingDataAdapter<AnimeNode, SearchAnimePagingAdapter.AnimeViewHolder>(diffCallback) {
 
     private var onClickListener: OnClickListener?=null
-
     companion object{
         val diffCallback = object: DiffUtil.ItemCallback<AnimeNode>(){
             override fun areItemsTheSame(oldItem: AnimeNode, newItem: AnimeNode): Boolean {
@@ -29,19 +28,31 @@ class SeasonAnimePagingAdapter(private val fragment: HomeFragment): PagingDataAd
         }
     }
 
-    inner class AnimeViewHolder(val binding : RvItemHomeBinding): RecyclerView.ViewHolder(binding.root)
+    inner class AnimeViewHolder(val binding : RvItemExploreBinding): RecyclerView.ViewHolder(binding.root)
 
-    override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SearchAnimePagingAdapter.AnimeViewHolder, position: Int) {
         val currentAnime = getItem(position)
 
         holder.binding.apply {
             Glide.with(holder.itemView.context)
                 .load(currentAnime?.mainPicture?.large)
-                .apply(RequestOptions().override(200, 500))
+                .apply(RequestOptions().override(169, 500))
                 .transition(DrawableTransitionOptions.withCrossFade()).centerInside()
                 .into(ivImg)
 
             tvTitle.text = currentAnime?.title
+            if(currentAnime?.startSeason?.season == "" || currentAnime?.startSeason?.season == null){
+                tvSeason.text = "??"
+            }else{
+                tvSeason.text = currentAnime.startSeason?.season?.capitalize()
+            }
+
+            if(currentAnime?.startSeason?.year == null){
+                tvYear.text = "??"
+            }else{
+                tvYear.text = currentAnime.startSeason?.year.toString()
+            }
+
             if (currentAnime?.mediaType=="ona" ||
                 currentAnime?.mediaType=="ova" ||
                 currentAnime?.mediaType=="tv"){
@@ -73,15 +84,7 @@ class SeasonAnimePagingAdapter(private val fragment: HomeFragment): PagingDataAd
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder {
-        return AnimeViewHolder(RvItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if(position < itemCount && getItem(position) != null){
-            0
-        }else{
-            1
-        }
+        return AnimeViewHolder(RvItemExploreBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     interface OnClickListener{

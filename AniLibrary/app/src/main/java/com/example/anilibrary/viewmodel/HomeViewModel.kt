@@ -24,7 +24,7 @@ class HomeViewModel(seasonAnimeRepository: SeasonAnimeRepository): ViewModel() {
     }
 }
 
-class ViewModelFactory() : ViewModelProvider.Factory {
+class HomeViewModelFactory() : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

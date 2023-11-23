@@ -6,14 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
@@ -25,7 +21,7 @@ import com.example.anilibrary.ui.adapter.HomeLoadingStateAdapter
 import com.example.anilibrary.ui.adapter.LoadingAdapter
 import com.example.anilibrary.ui.adapter.SeasonAnimePagingAdapter
 import com.example.anilibrary.viewmodel.HomeViewModel
-import com.example.anilibrary.viewmodel.ViewModelFactory
+import com.example.anilibrary.viewmodel.HomeViewModelFactory
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -34,7 +30,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel:HomeViewModel by viewModels{
-        ViewModelFactory()
+        HomeViewModelFactory()
     }
 
     private lateinit var animeAdapter: SeasonAnimePagingAdapter
@@ -95,7 +91,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        loadingAdapter = LoadingAdapter(arrayOf(1,2,3,4,5,6))
+        loadingAdapter = LoadingAdapter(1, arrayOf(1,2,3,4,5,6))
         loadingRecyclerView.apply {
             adapter = loadingAdapter
         }

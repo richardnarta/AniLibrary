@@ -67,7 +67,7 @@
                             android:fontFamily="sans-serif"
                             android:textColor="@color/white"
                             android:textSize="10sp"
-                            tools:text="tv"
+                            tools:text="TV"
                             tools:ignore="SmallSp" />
 
                         <TextView
