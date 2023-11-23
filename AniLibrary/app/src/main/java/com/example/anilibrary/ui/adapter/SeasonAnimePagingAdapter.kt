@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.example.anilibrary.R
 import com.example.anilibrary.databinding.RvItemHomeBinding
 import com.example.anilibrary.model.data.pojo.AnimeNode
+import com.example.anilibrary.ui.fragment.HomeFragment
 
-class SeasonAnimePagingAdapter: PagingDataAdapter<AnimeNode, SeasonAnimePagingAdapter.AnimeViewHolder>(diffCallback) {
+class SeasonAnimePagingAdapter(private val fragment: HomeFragment): PagingDataAdapter<AnimeNode, SeasonAnimePagingAdapter.AnimeViewHolder>(diffCallback) {
 
     private var onClickListener: OnClickListener?=null
 
@@ -40,9 +42,23 @@ class SeasonAnimePagingAdapter: PagingDataAdapter<AnimeNode, SeasonAnimePagingAd
                 .into(ivImg)
 
             tvTitle.text = currentAnime?.title
-            tvType.text = currentAnime?.mediaType
-            tvEpisode.text = currentAnime?.numEpisodes.toString()
-            tvRating.text = currentAnime?.rank.toString()
+            if (currentAnime?.mediaType=="movie" || currentAnime?.mediaType=="special"){
+                tvType.text = currentAnime.mediaType?.capitalize()
+            }else{
+                tvType.text = currentAnime?.mediaType?.uppercase()
+            }
+
+            if(currentAnime?.numEpisodes==0 || currentAnime?.numEpisodes==null){
+                tvEpisode.text = fragment.getString(R.string.tv_episode, "??")
+            }else{
+                tvEpisode.text = fragment.getString(R.string.tv_episode, currentAnime.numEpisodes.toString())
+            }
+
+            if(currentAnime?.rank != null){
+                tvRating.text = fragment.getString(R.string.rating, currentAnime.rank.toString())
+            }else{
+                tvRating.text = fragment.getString(R.string.rating, "?.?")
+            }
         }
 
         holder.itemView.setOnClickListener {
@@ -56,6 +72,14 @@ class SeasonAnimePagingAdapter: PagingDataAdapter<AnimeNode, SeasonAnimePagingAd
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder {
         return AnimeViewHolder(RvItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if(position < itemCount && getItem(position) != null){
+            0
+        }else{
+            1
+        }
     }
 
     interface OnClickListener{

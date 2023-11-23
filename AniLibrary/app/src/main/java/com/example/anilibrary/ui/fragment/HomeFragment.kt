@@ -5,15 +5,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.anilibrary.R
 import com.example.anilibrary.databinding.FragmentHomeBinding
 import com.example.anilibrary.model.data.pojo.AnimeNode
+import com.example.anilibrary.ui.adapter.HomeLoadingStateAdapter
+import com.example.anilibrary.ui.adapter.LoadingAdapter
 import com.example.anilibrary.ui.adapter.SeasonAnimePagingAdapter
 import com.example.anilibrary.viewmodel.HomeViewModel
 import com.example.anilibrary.viewmodel.ViewModelFactory
@@ -25,13 +34,17 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel:HomeViewModel by viewModels{
-        ViewModelFactory(this)
+        ViewModelFactory()
     }
 
     private lateinit var animeAdapter: SeasonAnimePagingAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var rvLayoutManager: GridLayoutManager
     private lateinit var seasonTitle: TextView
-    private lateinit var seasonYear: TextView
+
+    private lateinit var loadingAdapter: LoadingAdapter
+    private lateinit var loadingRecyclerView: RecyclerView
+    private lateinit var reloadButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +56,7 @@ class HomeFragment : Fragment() {
 
         bindingHomeWidget()
         createRecyclerView()
+        loadingView()
         loadData()
         animeCardOnClickListener()
 
@@ -52,22 +66,55 @@ class HomeFragment : Fragment() {
     private fun bindingHomeWidget(){
         binding.apply {
             recyclerView = rvAnimeCard
-            seasonTitle = tvSeason
-            seasonYear = tvYear
+            seasonTitle = tvHomeTitle
+            loadingRecyclerView = rvAnimeCardSkeleton
+            reloadButton = retryButton
         }
     }
 
     private fun createRecyclerView(){
-        animeAdapter = SeasonAnimePagingAdapter()
+        animeAdapter = SeasonAnimePagingAdapter(this)
+        rvLayoutManager = GridLayoutManager(requireContext(), 2)
 
         recyclerView.apply {
-            adapter = animeAdapter
+            layoutManager = rvLayoutManager
+            adapter = animeAdapter.withLoadStateFooter(
+                footer = HomeLoadingStateAdapter{
+                    animeAdapter.retry()
+                }
+            )
+        }
+
+        rvLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
+            override fun getSpanSize(position: Int): Int {
+                return if (animeAdapter.getItemViewType(position) == 1){
+                    2
+                }else{
+                    1
+                }
+            }
+        }
+
+        loadingAdapter = LoadingAdapter(arrayOf(1,2,3,4,5,6))
+        loadingRecyclerView.apply {
+            adapter = loadingAdapter
+        }
+    }
+
+    private fun loadingView(){
+        animeAdapter.addLoadStateListener { state->
+            binding.shimmerView.isVisible = state.source.refresh is LoadState.Loading
+            loadingRecyclerView.isVisible = state.source.refresh is LoadState.Loading
+            recyclerView.isVisible = state.source.refresh is LoadState.NotLoading && animeAdapter.itemCount > 0
+        }
+
+        reloadButton.setOnClickListener {
+            animeAdapter.retry()
         }
     }
 
     private fun loadData(){
-        seasonTitle.text = viewModel.default[0].capitalize()
-        seasonYear.text = viewModel.default[1]
+        seasonTitle.text = getString(R.string.home_title, viewModel.default[0].capitalize(), viewModel.default[1])
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.animeFlow.observe(viewLifecycleOwner){ pagingData->
