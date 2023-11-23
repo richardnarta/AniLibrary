@@ -21,7 +21,7 @@ import com.example.anilibrary.ui.adapter.HomeLoadingStateAdapter
 import com.example.anilibrary.ui.adapter.LoadingAdapter
 import com.example.anilibrary.ui.adapter.SeasonAnimePagingAdapter
 import com.example.anilibrary.viewmodel.HomeViewModel
-import com.example.anilibrary.viewmodel.HomeViewModelFactory
+import com.example.anilibrary.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel:HomeViewModel by viewModels{
-        HomeViewModelFactory()
+        ViewModelFactory()
     }
 
     private lateinit var animeAdapter: SeasonAnimePagingAdapter

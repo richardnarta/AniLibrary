@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="56dp"
     tools:context=".ui.fragment.ExploreFragment">
 
     <androidx.appcompat.widget.SearchView
@@ -22,7 +23,7 @@
         android:id="@+id/rvAnimeCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/rv_item_explore"/>
 
@@ -40,4 +41,60 @@
             android:visibility="gone"
             tools:listitem="@layout/rv_item_explore_skeleton"/>
     </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <LinearLayout
+        android:id="@+id/infoExplore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="350dp"
+            android:src="@drawable/kubo_explore"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/explore_text"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="320dp"
+            android:src="@drawable/kubo_error"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textAlignment="center"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="20sp"
+            android:layout_marginVertical="10dp"
+            android:text="@string/rto"/>
+
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-black"
+            android:textAllCaps="false"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button"
+            android:textAlignment="center"
+            android:text="@string/retry"/>
+    </LinearLayout>
 </LinearLayout>

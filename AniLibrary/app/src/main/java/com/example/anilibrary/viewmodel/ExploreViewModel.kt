@@ -24,13 +24,3 @@ class ExploreViewModel(animeRepository: SearchAnimeRepository) : ViewModel() {
         return currentQuery.value
     }
 }
-
-class ExploreViewModelFactory() : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ExploreViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return ExploreViewModel(Injection.provideAnimeSearchRepository()) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}

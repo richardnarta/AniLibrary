@@ -50,6 +50,7 @@
                         android:ellipsize="end"
                         android:fontFamily="sans-serif"
                         android:maxLines="1"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="11.5sp"
                         tools:text="5-toubun no Hanayome ∬" />

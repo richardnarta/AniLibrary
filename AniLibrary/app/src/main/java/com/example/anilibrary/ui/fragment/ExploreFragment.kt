@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,7 +20,7 @@ import com.example.anilibrary.ui.adapter.ExploreLoadingStateAdapter
 import com.example.anilibrary.ui.adapter.LoadingAdapter
 import com.example.anilibrary.ui.adapter.SearchAnimePagingAdapter
 import com.example.anilibrary.viewmodel.ExploreViewModel
-import com.example.anilibrary.viewmodel.ExploreViewModelFactory
+import com.example.anilibrary.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
 
@@ -28,7 +30,7 @@ class ExploreFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ExploreViewModel by viewModels{
-        ExploreViewModelFactory()
+        ViewModelFactory()
     }
 
     private lateinit var animeAdapter: SearchAnimePagingAdapter
@@ -37,6 +39,10 @@ class ExploreFragment : Fragment() {
 
     private lateinit var loadingAdapter: LoadingAdapter
     private lateinit var loadingRecyclerView: RecyclerView
+
+    private lateinit var reloadButton: Button
+    private lateinit var welcomeScreen: LinearLayout
+    private var firstInput = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +67,8 @@ class ExploreFragment : Fragment() {
             recyclerView = rvAnimeCard
             searchBar = searchView
             loadingRecyclerView = rvAnimeCardSkeleton
+            reloadButton = retryButton
+            welcomeScreen = infoExplore
         }
     }
 
@@ -86,6 +94,11 @@ class ExploreFragment : Fragment() {
             binding.shimmerView.isVisible = state.source.refresh is LoadState.Loading
             loadingRecyclerView.isVisible = state.source.refresh is LoadState.Loading
             recyclerView.isVisible = state.source.refresh is LoadState.NotLoading && animeAdapter.itemCount > 0
+            welcomeScreen.isVisible = state.source.refresh is LoadState.NotLoading && firstInput
+        }
+
+        reloadButton.setOnClickListener {
+            animeAdapter.retry()
         }
     }
 
@@ -106,6 +119,7 @@ class ExploreFragment : Fragment() {
                     recyclerView.scrollToPosition(0)
                     viewModel.searchAnime(query)
                     searchBar.clearFocus()
+                    firstInput = false
                 }
                 return false
             }

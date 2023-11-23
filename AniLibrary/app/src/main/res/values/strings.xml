@@ -3,6 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_explore">Explore</string>
     <string name="title_profile">Profile</string>
+    <string name="title_detail">Anime Detail</string>
 
     <!--    Home Layout-->
     <string name="home_title">%1$s - %2$s</string>
@@ -15,4 +16,5 @@
     <string name="retry">Retry</string>
 
     <string name="dummy_rating">★ 8.06</string>
+    <string name="explore_text">Explore new anime here!</string>
 </resources>
