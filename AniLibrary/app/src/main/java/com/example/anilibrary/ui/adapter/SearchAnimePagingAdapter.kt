@@ -79,7 +79,7 @@ class SearchAnimePagingAdapter(private val fragment:ExploreFragment): PagingData
             if(currentAnime?.rank != null){
                 tvRating.text = fragment.getString(R.string.rating, currentAnime.rank.toString())
             }else{
-                tvRating.text = fragment.getString(R.string.rating, "?.?")
+                tvRating.text = fragment.getString(R.string.rating, "N/A")
             }
         }
 

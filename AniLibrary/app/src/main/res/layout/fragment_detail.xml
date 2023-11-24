@@ -58,8 +58,8 @@
                     android:fontFamily="sans-serif"
                     android:textColor="?android:textColorPrimary"
                     android:textStyle="bold"
-                    android:textSize="15sp"
-                    tools:text="Score : 8.06"/>
+                    android:textSize="20sp"
+                    tools:text="★ 8.06"/>
                 <TextView
                     android:id="@+id/tv_user"
                     android:layout_width="match_parent"

@@ -1,10 +1,13 @@
 package com.example.anilibrary.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.core.view.marginBottom
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -49,9 +52,19 @@ class DetailFragment : Fragment() {
         viewModel.dataAnime.observe(viewLifecycleOwner){ dataAnime->
             binding.apply {
                 tvTitle.text = dataAnime.title
+                if (dataAnime.altTitle?.en == "") {
+                    tvAltTitleEn.isVisible = false
+                }
+                if (dataAnime.altTitle?.ja == "") {
+                    tvAltTitleJp.isVisible = false
+                }
                 tvAltTitleEn.text = dataAnime.altTitle?.en
                 tvAltTitleJp.text = dataAnime.altTitle?.ja
-                tvRating.text = getString(R.string.score, dataAnime.rating.toString())
+                if (dataAnime.rating == null) {
+                    tvRating.text = getString(R.string.rating, "N/A")
+                } else {
+                    tvRating.text = getString(R.string.rating, dataAnime.rating.toString())
+                }
                 tvUser.text = getString(R.string.users, dataAnime.numUsers.toString())
                 Glide.with(context)
                     .load(dataAnime?.mainPicture?.large)
@@ -59,7 +72,11 @@ class DetailFragment : Fragment() {
                     .transition(DrawableTransitionOptions.withCrossFade()).centerInside()
                     .into(ivImg)
                 tvSynopsis.text = dataAnime.synopsis
-                tvRank.text = getString(R.string.rank, dataAnime.rank.toString())
+                if (dataAnime.rank == null) {
+                    tvRank.text = getString(R.string.rank, "N/A")
+                } else {
+                    tvRank.text = getString(R.string.rank, dataAnime.rank.toString())
+                }
                 if (dataAnime.mediaType=="ona" ||
                     dataAnime.mediaType=="ova" ||
                     dataAnime.mediaType=="tv"){
@@ -84,11 +101,16 @@ class DetailFragment : Fragment() {
                     if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
                 })
                 tvSeason.append(dataAnime.startSeason?.year.toString())
-                for (index in dataAnime.studio!!.indices) {
-                    if (index == 0) {
-                        tvStudios.text = getString(R.string.studio, dataAnime.studio?.get(index)?.name)
-                    } else {
-                        tvStudios.append(getString(R.string.append, dataAnime.studio?.get(index)?.name))
+
+                if (dataAnime.studio!!.isEmpty()) {
+                    tvStudios.text = getString(R.string.studio, "")
+                } else {
+                    for (index in dataAnime.studio!!.indices) {
+                        if (index == 0) {
+                            tvStudios.text = getString(R.string.studio, dataAnime.studio?.get(index)?.name)
+                        } else {
+                            tvStudios.append(getString(R.string.append, dataAnime.studio?.get(index)?.name))
+                        }
                     }
                 }
                 for (index in dataAnime.genre!!.indices) {

@@ -64,7 +64,7 @@ class SeasonAnimePagingAdapter(private val fragment: HomeFragment): PagingDataAd
             if(currentAnime?.rank != null){
                 tvRating.text = fragment.getString(R.string.rating, currentAnime.rank.toString())
             }else{
-                tvRating.text = fragment.getString(R.string.rating, "?.?")
+                tvRating.text = fragment.getString(R.string.rating, "N/A")
             }
         }
 

@@ -25,7 +25,6 @@
     <string name="planned">Planned</string>
     <string name="watched">Watched</string>
     <string name="type">Type : %1$s</string>
-    <string name="score">Score : %1$s</string>
     <string name="users">%1$s Users</string>
     <string name="rank">Ranked #%1$s</string>
     <string name="num_eps">Episodes : %1$s</string>
