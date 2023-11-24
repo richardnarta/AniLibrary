@@ -5,16 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.example.anilibrary.MainActivity
 import com.example.anilibrary.databinding.FragmentDetailBinding
 import com.example.anilibrary.model.data.util.DetailAnimeSource
-import com.example.anilibrary.model.data.pojo.AnimeDetailResponseAPI
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+import com.example.anilibrary.R
 import com.example.anilibrary.viewmodel.DetailViewModel
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class DetailFragment : Fragment() {
 
@@ -32,7 +34,7 @@ class DetailFragment : Fragment() {
         val root: View = binding.root
 
         loadData()
-        bindingDetailWidget()
+        bindingDetailWidget(this)
 
         return root
     }
@@ -43,10 +45,59 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun bindingDetailWidget(){
+    private fun bindingDetailWidget(context: DetailFragment){
         viewModel.dataAnime.observe(viewLifecycleOwner){ dataAnime->
             binding.apply {
-
+                tvTitle.text = dataAnime.title
+                tvAltTitleEn.text = dataAnime.altTitle?.en
+                tvAltTitleJp.text = dataAnime.altTitle?.ja
+                tvRating.text = getString(R.string.score, dataAnime.rating.toString())
+                tvUser.text = getString(R.string.users, dataAnime.numUsers.toString())
+                Glide.with(context)
+                    .load(dataAnime?.mainPicture?.large)
+                    .apply(RequestOptions().override(190, 265))
+                    .transition(DrawableTransitionOptions.withCrossFade()).centerInside()
+                    .into(ivImg)
+                tvSynopsis.text = dataAnime.synopsis
+                tvRank.text = getString(R.string.rank, dataAnime.rank.toString())
+                if (dataAnime.mediaType=="ona" ||
+                    dataAnime.mediaType=="ova" ||
+                    dataAnime.mediaType=="tv"){
+                    tvType.text =  getString(R.string.type, dataAnime.mediaType!!.uppercase())
+                }else{
+                    tvType.text = getString(R.string.type, dataAnime?.mediaType?.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(
+                            Locale.getDefault()
+                        ) else it.toString()
+                    })
+                }
+                tvEpisode.text = getString(R.string.num_eps,dataAnime.numEpisodes.toString())
+                dataAnime.status = dataAnime.status?.replace("_", " ")
+                val status = dataAnime.status?.split(" ")
+                dataAnime.status = status?.joinToString(" ") {
+                    it.replaceFirstChar { char ->
+                        if (char.isLowerCase()) char.titlecase(Locale.getDefault()) else char.toString()
+                    }
+                }
+                tvStatus.text = getString(R.string.status, dataAnime.status)
+                tvSeason.text = getString(R.string.season,dataAnime.startSeason?.season?.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                })
+                tvSeason.append(dataAnime.startSeason?.year.toString())
+                for (index in dataAnime.studio!!.indices) {
+                    if (index == 0) {
+                        tvStudios.text = getString(R.string.studio, dataAnime.studio?.get(index)?.name)
+                    } else {
+                        tvStudios.append(getString(R.string.append, dataAnime.studio?.get(index)?.name))
+                    }
+                }
+                for (index in dataAnime.genre!!.indices) {
+                    if (index == 0) {
+                        tvGenre.text = getString(R.string.genre, dataAnime.genre?.get(index)?.name)
+                    } else {
+                        tvGenre.append(getString(R.string.append, dataAnime.genre?.get(index)?.name))
+                    }
+                }
             }
         }
     }
