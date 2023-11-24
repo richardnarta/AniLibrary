@@ -29,7 +29,7 @@ interface ApiService {
 
     @Headers("X-MAL-CLIENT-ID: a194edc733fff7b6085829f0ca5cb8a5")
     @GET("anime/{id}")
-    fun getAnimeDetail(
+    suspend fun getAnimeDetail(
         @Path("id") id:Int,
         @Query("fields") fields:String = "id,title,main_picture,alternative_titles,synopsis,mean,num_scoring_users,media_type,status,genres,num_episodes,start_season,studios,source,rank"
     ): Response<AnimeDetailResponseAPI>

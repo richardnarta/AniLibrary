@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.anilibrary.MainActivity
 import com.example.anilibrary.databinding.FragmentDetailBinding
-import com.example.anilibrary.model.data.pagination.DetailAnimeSource
+import com.example.anilibrary.model.data.util.DetailAnimeSource
 import com.example.anilibrary.model.data.pojo.AnimeDetailResponseAPI
+import com.example.anilibrary.viewmodel.DetailViewModel
+import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment() {
 
@@ -18,7 +22,7 @@ class DetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: DetailFragmentArgs by navArgs()
-    private lateinit var dataAnime: AnimeDetailResponseAPI
+    private val viewModel: DetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +30,6 @@ class DetailFragment : Fragment() {
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        (activity as MainActivity).navView.isVisible = false
 
         loadData()
         bindingDetailWidget()
@@ -34,19 +37,22 @@ class DetailFragment : Fragment() {
         return root
     }
 
-    private fun bindingDetailWidget(){
-        binding.apply {
-
+    private fun loadData(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.dataAnime.value = DetailAnimeSource.detailSource(args.id)!!
         }
     }
 
-    private fun loadData(){
-        dataAnime = DetailAnimeSource.detailSource(args.id)!!
+    private fun bindingDetailWidget(){
+        viewModel.dataAnime.observe(viewLifecycleOwner){ dataAnime->
+            binding.apply {
+
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as MainActivity).navView.isVisible = true
         _binding = null
     }
 }
