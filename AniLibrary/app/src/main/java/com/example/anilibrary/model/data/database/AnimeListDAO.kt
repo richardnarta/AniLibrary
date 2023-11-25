@@ -27,4 +27,7 @@ interface AnimeListDAO {
 
     @Query("SELECT * FROM ${Constants.ANIME_TABLE} WHERE list_type='planned' ORDER BY anime_title ASC")
     fun getPlannedAnime(): Flow<List<AnimeListEntity>>
+
+    @Query("SELECT EXISTS(SELECT 1 from ${Constants.ANIME_TABLE} WHERE id = :id)")
+    suspend fun isAnimeAdded(id : Int) : Int
 }

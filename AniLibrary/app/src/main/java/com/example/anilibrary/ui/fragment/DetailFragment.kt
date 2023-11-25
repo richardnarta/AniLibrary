@@ -164,7 +164,13 @@ class DetailFragment : Fragment() {
                     dataAnime.startSeason?.year!!,
                     dataAnime.rating))
             }
-            Snackbar.make(binding.root, "Anime is successfully added to your watched list!", Snackbar.LENGTH_SHORT).show()
+            viewModel.checkAnime(args.id){
+                if(it == 1){
+                    Snackbar.make(binding.root, "Anime is added successfully to your anime watched list!", Snackbar.LENGTH_SHORT).show()
+                }else{
+                    Snackbar.make(binding.root, "Fail to update your list, Try Again!", Snackbar.LENGTH_SHORT).show()
+                }
+            }
         }
 
         binding.PlannedButton.setOnClickListener {
@@ -177,7 +183,13 @@ class DetailFragment : Fragment() {
                     dataAnime.startSeason?.year,
                     dataAnime.rating))
             }
-            Snackbar.make(binding.root, "Anime is successfully added to your planned list!", Snackbar.LENGTH_SHORT).show()
+            viewModel.checkAnime(args.id){
+                if(it == 1){
+                    Snackbar.make(binding.root, "Anime is added successfully to your anime planned list!", Snackbar.LENGTH_SHORT).show()
+                }else{
+                    Snackbar.make(binding.root, "Fail to update your list, Try Again!", Snackbar.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

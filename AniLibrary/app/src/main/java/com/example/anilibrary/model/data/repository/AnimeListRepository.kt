@@ -19,4 +19,9 @@ class AnimeListRepository(private val animeDAO: AnimeListDAO) {
     suspend fun deleteAnimeFromId(id: Int){
         animeDAO.deleteAnimeFromId(id)
     }
+
+    @WorkerThread
+    suspend fun isAnimeAdded(id: Int):Int{
+        return animeDAO.isAnimeAdded(id)
+    }
 }

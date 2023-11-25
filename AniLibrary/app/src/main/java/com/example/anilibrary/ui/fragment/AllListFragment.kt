@@ -1,5 +1,6 @@
 package com.example.anilibrary.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -74,9 +75,10 @@ class AllListFragment : Fragment() {
     private fun itemOnClickListener() {
         animeAdapter.setOnClickListener(object :
             AnimeListAdapter.OnClickListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onClick(position: Int, model: AnimeListEntity) {
                 viewModel.deleteAnime(model.id!!)
-                animeAdapter.notifyItemRemoved(position+1)
+                animeAdapter.notifyDataSetChanged()
             }
         })
     }

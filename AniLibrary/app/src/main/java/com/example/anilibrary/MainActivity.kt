@@ -25,7 +25,10 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navController.addOnDestinationChangedListener{_, destination, _->
-            navView.isVisible = destination.id != R.id.navigation_detail
+            navView.isVisible = destination.id != R.id.navigation_detail &&
+                    destination.id != R.id.navigation_all_list &&
+                    destination.id != R.id.navigation_planned_list &&
+                    destination.id != R.id.navigation_watched_list
         }
 
         val appBarConfiguration = AppBarConfiguration(
