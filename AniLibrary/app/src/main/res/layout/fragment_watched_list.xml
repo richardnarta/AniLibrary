@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="56dp"
+    tools:context=".ui.fragment.WatchedListFragment">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        app:iconifiedByDefault="false"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        app:queryHint="Search Your List"
+        android:background="@drawable/rounded_rect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAnimeCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/rv_item_explore_blue"/>
+</LinearLayout>
