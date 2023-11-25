@@ -45,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:background="@drawable/rounded_rect"
+        style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_marginHorizontal="15dp"
         android:foreground="@drawable/arrow_bottom"
         android:foregroundGravity="right|center_vertical"

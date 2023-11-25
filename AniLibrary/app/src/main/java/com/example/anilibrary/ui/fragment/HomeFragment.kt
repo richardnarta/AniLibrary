@@ -1,11 +1,16 @@
 package com.example.anilibrary.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.AdapterView
+import android.widget.AutoCompleteTextView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -39,6 +44,8 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var rvLayoutManager: GridLayoutManager
     private lateinit var seasonTitle: TextView
+    private lateinit var spinner: Spinner
+    private lateinit var currentSeason: Array<String>
 
     private lateinit var loadingAdapter: LoadingAdapter
     private lateinit var loadingRecyclerView: RecyclerView
@@ -55,6 +62,7 @@ class HomeFragment : Fragment() {
 
         bindingHomeWidget()
         createRecyclerView()
+        createSpinner()
         loadingView()
         loadData()
         itemOnClickListener()
@@ -69,6 +77,7 @@ class HomeFragment : Fragment() {
             loadingRecyclerView = rvAnimeCardSkeleton
             reloadButton = retryButton
             bookMark = ivBookmark
+            spinner = spinnerSeason
         }
     }
 
@@ -101,6 +110,111 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun createSpinner() {
+        var firstOpen = true
+        var year1 = 2023
+        var year2 = 2022
+        var season = resources.getStringArray(R.array.seasonList).toMutableList()
+        var seasonWithYear: Array<Array<String>> = Array(4) { Array(4) { "" } }
+        var itemAdapter: MutableList<String> = mutableListOf()
+        var updatedPosition = 0
+
+
+        fun bindYear() {
+            if (season[0] == "Fall") {
+                for (i in 0..3) {
+                    seasonWithYear[i][0] = season[i]
+                    seasonWithYear[i][1] = year1.toString()
+                }
+            } else {
+                val currentIndex = season.indexOf("Fall")
+                for (i in 0..<currentIndex) {
+                    seasonWithYear[i][0] = season[i]
+                    seasonWithYear[i][1] = year1.toString()
+                }
+                for (i in currentIndex..3) {
+                    seasonWithYear[i][0] = season[i]
+                    seasonWithYear[i][1] = year2.toString()
+                }
+            }
+        }
+
+        fun updateItemAdapter () {
+            itemAdapter = seasonWithYear.map {
+                it.joinToString(" ")
+            }.toMutableList()
+        }
+
+        fun updateSeasonViewModel (pos: Int) {
+            currentSeason = itemAdapter[pos].split(" ").toTypedArray()
+            viewModel.setSeason(currentSeason)
+        }
+
+        bindYear()
+        updateItemAdapter()
+        val spinnerAdapter = ArrayAdapter(requireContext(), androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item, itemAdapter)
+        spinner.adapter = spinnerAdapter
+        spinner.dropDownVerticalOffset = 100
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (!firstOpen) {
+                    if (position != 1) {
+                        updatedPosition = updateSeason(position)
+                        spinner.setSelection(updatedPosition)
+                        updateSeasonViewModel(updatedPosition)
+                    } else if (itemAdapter[0].contains("Fall 2023")) {
+                        updateSeasonViewModel(1)
+                    }
+                } else {
+                    firstOpen = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+            fun updateSeason(pos: Int): Int {
+                val seasonTemp: MutableList<String> = mutableListOf()
+                var position = 0
+                if (pos > 1) {
+                    for (i in pos-1..3) {
+                        seasonTemp.add(season[i])
+                    }
+                    for (i in 0 ..pos-2) {
+                        seasonTemp.add(season[i])
+                    }
+                    if(seasonTemp[0] == "Fall" || (seasonTemp[3] == "Fall" && pos == 3)) {
+                        year1-=1
+                        year2-=1
+                    }
+                    season = seasonTemp
+                    position = 1
+                } else if (pos<1 && !itemAdapter[pos].contains("Fall 2023")) {
+                    seasonTemp.add(season[3])
+                    for (i in pos..2) {
+                        seasonTemp.add(season[i])
+                    }
+                    if(seasonTemp[3] == "Spring") {
+                        year1+=1
+                        year2+=1
+                    }
+                    season = seasonTemp
+                    position = 1
+                }
+                bindYear()
+                updateItemAdapter()
+                spinnerAdapter.clear()
+                spinnerAdapter.addAll(itemAdapter)
+                spinnerAdapter.notifyDataSetChanged()
+                return position
+            }
+        }
+    }
+
     private fun loadingView(){
         animeAdapter.addLoadStateListener { state->
             binding.shimmerView.isVisible = state.source.refresh is LoadState.Loading
@@ -114,12 +228,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadData(){
-        seasonTitle.text = getString(R.string.home_title,
-            viewModel.default[0].replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }, viewModel.default[1])
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.animeFlow.observe(viewLifecycleOwner){ pagingData->
                 animeAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+                seasonTitle.text = getString(
+                    R.string.home_title,
+                    viewModel.currentSeason.value?.get(0)?.replaceFirstChar { char ->
+                        if (char.isLowerCase()) char.titlecase(Locale.getDefault()) else char.toString()
+                    }, viewModel.currentSeason.value?.get(1))
             }
         }
     }

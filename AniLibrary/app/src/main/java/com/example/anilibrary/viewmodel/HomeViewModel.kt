@@ -13,10 +13,10 @@ import com.example.anilibrary.ui.fragment.HomeFragment
 
 class HomeViewModel(seasonAnimeRepository: SeasonAnimeRepository): ViewModel() {
 
-    val default= arrayOf("fall", "2023")
-    private val currentSeason = MutableLiveData(default)
+    private val default= arrayOf("fall", "2023")
+    val currentSeason = MutableLiveData(default)
     val animeFlow = currentSeason.switchMap {
-        seasonAnimeRepository.getAnime(it[0], it[1]).cachedIn(viewModelScope)
+        seasonAnimeRepository.getAnime(it[0].lowercase(), it[1]).cachedIn(viewModelScope)
     }
 
     fun setSeason(season: Array<String>){

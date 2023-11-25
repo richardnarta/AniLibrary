@@ -10,7 +10,12 @@
 
     <!--    Home Layout-->
     <string name="home_title">%1$s - %2$s</string>
-
+    <string-array name="seasonList">
+        <item>Fall</item>
+        <item>Summer</item>
+        <item>Spring</item>
+        <item>Winter</item>
+    </string-array>
     <!--    CardView Vertical-->
     <string name="tv_episode">(%1$s Eps)</string>
     <string name="rating">★ %1$s</string>
