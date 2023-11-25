@@ -4,6 +4,9 @@
     <string name="title_explore">Explore</string>
     <string name="title_profile">Profile</string>
     <string name="title_detail">Anime Detail</string>
+    <string name="title_all_list">All Anime List</string>
+    <string name="title_watched_list">Watched Anime List</string>
+    <string name="title_planned_list">Planned Anime List</string>
 
     <!--    Home Layout-->
     <string name="home_title">%1$s - %2$s</string>

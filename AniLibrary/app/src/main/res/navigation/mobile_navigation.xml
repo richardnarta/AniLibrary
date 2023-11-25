@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_detail"
             app:destination="@id/navigation_detail" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_all_list"
+            app:destination="@id/navigation_all_list" />
     </fragment>
 
     <fragment
@@ -29,7 +32,17 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.anilibrary.ui.fragment.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_watched_list"
+            app:destination="@id/navigation_watched_list" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_planned_list"
+            app:destination="@id/navigation_planned_list" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_all_list"
+            app:destination="@id/navigation_all_list" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_detail"
@@ -41,4 +54,22 @@
             android:name="id"
             app:argType="integer"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_all_list"
+        android:name="com.example.anilibrary.ui.fragment.AllListFragment"
+        android:label="@string/title_all_list"
+        tools:layout="@layout/fragment_all_list"/>
+
+    <fragment
+        android:id="@+id/navigation_watched_list"
+        android:name="com.example.anilibrary.ui.fragment.WatchedListFragment"
+        android:label="@string/title_watched_list"
+        tools:layout="@layout/fragment_watched_list"/>
+
+    <fragment
+        android:id="@+id/navigation_planned_list"
+        android:name="com.example.anilibrary.ui.fragment.PlannedListFragment"
+        android:label="@string/title_planned_list"
+        tools:layout="@layout/fragment_planned_list"/>
 </navigation>

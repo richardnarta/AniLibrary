@@ -14,4 +14,9 @@ class AnimeListRepository(private val animeDAO: AnimeListDAO) {
     suspend fun insertAnime(animeData: AnimeListEntity){
         animeDAO.insertAnime(animeData)
     }
+
+    @WorkerThread
+    suspend fun deleteAnimeFromId(id: Int){
+        animeDAO.deleteAnimeFromId(id)
+    }
 }

@@ -17,11 +17,8 @@ interface AnimeListDAO {
     @Update
     suspend fun updateAnime(animeListEntity: AnimeListEntity)
 
-    @Delete
-    suspend fun deleteAnime(animeListEntity: AnimeListEntity)
-
-    @Query("DELETE FROM ${Constants.ANIME_TABLE}")
-    suspend fun deleteAll()
+    @Query("DELETE FROM ${Constants.ANIME_TABLE} WHERE id=:id")
+    suspend fun deleteAnimeFromId(id:Int)
 
     @Query("SELECT * FROM ${Constants.ANIME_TABLE} ORDER BY anime_title DESC")
     fun getAllAnime(): Flow<List<AnimeListEntity>>
@@ -31,7 +28,4 @@ interface AnimeListDAO {
 
     @Query("SELECT * FROM ${Constants.ANIME_TABLE} WHERE list_type='planned' ORDER BY anime_title DESC")
     fun getPlannedAnime(): Flow<List<AnimeListEntity>>
-
-    @Query("DELETE FROM ${Constants.ANIME_TABLE} WHERE id=:id")
-    fun deleteAnimeFromId(id:Int)
 }
