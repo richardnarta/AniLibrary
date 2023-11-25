@@ -12,7 +12,7 @@ data class AnimeListEntity(
     @ColumnInfo(name = "list_type") val listType: String,
     @ColumnInfo(name = "anime_poster") val animePoster: String,
     @ColumnInfo(name = "anime_title") val animeTitle: String,
-    @ColumnInfo(name = "anime_season") val animeSeason: String,
-    @ColumnInfo(name = "anime_year") val animeYear: Int,
-    @ColumnInfo(name = "anime_rating") val animeRating: Float
+    @ColumnInfo(name = "anime_season") val animeSeason: String?,
+    @ColumnInfo(name = "anime_year") val animeYear: Int?,
+    @ColumnInfo(name = "anime_rating") val animeRating: Float?
 )

@@ -2,7 +2,6 @@ package com.example.anilibrary.ui.fragment
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,17 +16,27 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.anilibrary.R
+import com.example.anilibrary.model.data.database.AnimeListDatabase
+import com.example.anilibrary.model.data.database.AnimeListEntity
+import com.example.anilibrary.model.data.repository.AnimeListRepository
+import com.example.anilibrary.viewmodel.DBViewModelFactory
 import com.example.anilibrary.viewmodel.DetailViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import java.util.Locale
 
 class DetailFragment : Fragment() {
 
+    private val database by lazy { AnimeListDatabase.getAnimeDB(requireContext()) }
+    private val repository by lazy { AnimeListRepository(database.getDao()) }
+
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
     private val args: DetailFragmentArgs by navArgs()
-    private val viewModel: DetailViewModel by viewModels()
+    private val viewModel: DetailViewModel by viewModels{
+        DBViewModelFactory(repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +47,7 @@ class DetailFragment : Fragment() {
 
         loadData()
         bindingDetailWidget(this)
-        onClickListener()
+        itemOnClickListener()
 
         return root
     }
@@ -139,10 +148,36 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun onClickListener() {
+    private fun itemOnClickListener() {
         binding.retryButton.setOnClickListener {
             binding.errorMessage.isVisible = false
             loadData()
+        }
+
+        binding.WatchedButton.setOnClickListener {
+            viewModel.dataAnime.observe(viewLifecycleOwner){dataAnime->
+                viewModel.insertAnime(AnimeListEntity(args.id,
+                    "watched",
+                    dataAnime.mainPicture?.large!!,
+                    dataAnime.title!!,
+                    dataAnime.startSeason?.season!!,
+                    dataAnime.startSeason?.year!!,
+                    dataAnime.rating))
+            }
+            Snackbar.make(binding.root, "Anime is successfully added to your watched list!", Snackbar.LENGTH_SHORT).show()
+        }
+
+        binding.PlannedButton.setOnClickListener {
+            viewModel.dataAnime.observe(viewLifecycleOwner){dataAnime->
+                viewModel.insertAnime(AnimeListEntity(args.id,
+                    "planned",
+                    dataAnime.mainPicture?.large!!,
+                    dataAnime.title!!,
+                    dataAnime.startSeason?.season,
+                    dataAnime.startSeason?.year,
+                    dataAnime.rating))
+            }
+            Snackbar.make(binding.root, "Anime is successfully added to your planned list!", Snackbar.LENGTH_SHORT).show()
         }
     }
 

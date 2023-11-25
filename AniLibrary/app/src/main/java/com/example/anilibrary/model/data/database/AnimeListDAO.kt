@@ -1,7 +1,6 @@
 package com.example.anilibrary.model.data.database
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -20,12 +19,12 @@ interface AnimeListDAO {
     @Query("DELETE FROM ${Constants.ANIME_TABLE} WHERE id=:id")
     suspend fun deleteAnimeFromId(id:Int)
 
-    @Query("SELECT * FROM ${Constants.ANIME_TABLE} ORDER BY anime_title DESC")
+    @Query("SELECT * FROM ${Constants.ANIME_TABLE} ORDER BY anime_title ASC")
     fun getAllAnime(): Flow<List<AnimeListEntity>>
 
-    @Query("SELECT * FROM ${Constants.ANIME_TABLE} WHERE list_type='watched' ORDER BY anime_title DESC")
+    @Query("SELECT * FROM ${Constants.ANIME_TABLE} WHERE list_type='watched' ORDER BY anime_title ASC")
     fun getWatchedAnime(): Flow<List<AnimeListEntity>>
 
-    @Query("SELECT * FROM ${Constants.ANIME_TABLE} WHERE list_type='planned' ORDER BY anime_title DESC")
+    @Query("SELECT * FROM ${Constants.ANIME_TABLE} WHERE list_type='planned' ORDER BY anime_title ASC")
     fun getPlannedAnime(): Flow<List<AnimeListEntity>>
 }

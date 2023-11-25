@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -42,6 +43,7 @@ class HomeFragment : Fragment() {
     private lateinit var loadingAdapter: LoadingAdapter
     private lateinit var loadingRecyclerView: RecyclerView
     private lateinit var reloadButton: Button
+    private lateinit var bookMark: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +57,7 @@ class HomeFragment : Fragment() {
         createRecyclerView()
         loadingView()
         loadData()
-        animeCardOnClickListener()
+        itemOnClickListener()
 
         return root
     }
@@ -66,6 +68,7 @@ class HomeFragment : Fragment() {
             seasonTitle = tvHomeTitle
             loadingRecyclerView = rvAnimeCardSkeleton
             reloadButton = retryButton
+            bookMark = ivBookmark
         }
     }
 
@@ -121,13 +124,17 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun animeCardOnClickListener(){
+    private fun itemOnClickListener(){
         animeAdapter.setOnClickListener(object :
         SeasonAnimePagingAdapter.OnClickListener{
             override fun onClick(position: Int, model: AnimeNode) {
                 findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationDetail(model.id!!))
             }
         })
+
+        bookMark.setOnClickListener{
+            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationAllList())
+        }
     }
 
     override fun onDestroyView() {
