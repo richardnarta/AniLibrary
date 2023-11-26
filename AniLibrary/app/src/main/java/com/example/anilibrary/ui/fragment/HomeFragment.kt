@@ -112,13 +112,17 @@ class HomeFragment : Fragment() {
 
     private fun createSpinner() {
         var firstOpen = true
-        var year1 = 2023
-        var year2 = 2022
-        var season = resources.getStringArray(R.array.seasonList).toMutableList()
-        var seasonWithYear: Array<Array<String>> = Array(4) { Array(4) { "" } }
+        var year1 = viewModel.year.value?.get(0)!!
+        var year2 = viewModel.year.value?.get(1)!!
+        var season = viewModel.season.value!!
+        val seasonWithYear: Array<Array<String>> = Array(4) { Array(4) { "" } }
         var itemAdapter: MutableList<String> = mutableListOf()
         var updatedPosition = 0
 
+        if (!viewModel.currentSeason.value.contentEquals(viewModel.default)) {
+            currentSeason = viewModel.currentSeason.value!!
+            var temp = currentSeason
+        }
 
         fun bindYear() {
             if (season[0] == "Fall") {
@@ -152,6 +156,7 @@ class HomeFragment : Fragment() {
 
         bindYear()
         updateItemAdapter()
+
         val spinnerAdapter = ArrayAdapter(requireContext(), androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item, itemAdapter)
         spinner.adapter = spinnerAdapter
         spinner.dropDownVerticalOffset = 100
@@ -191,7 +196,9 @@ class HomeFragment : Fragment() {
                         year1-=1
                         year2-=1
                     }
-                    season = seasonTemp
+                    season = seasonTemp.toTypedArray()
+                    viewModel.season.value = season
+                    viewModel.year.value = arrayOf(year1, year2)
                     position = 1
                 } else if (pos<1 && !itemAdapter[pos].contains("Fall 2023")) {
                     seasonTemp.add(season[3])
@@ -202,7 +209,9 @@ class HomeFragment : Fragment() {
                         year1+=1
                         year2+=1
                     }
-                    season = seasonTemp
+                    season = seasonTemp.toTypedArray()
+                    viewModel.season.value = season
+                    viewModel.year.value = arrayOf(year1, year2)
                     position = 1
                 }
                 bindYear()

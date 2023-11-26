@@ -14,12 +14,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navView: BottomNavigationView
+    private var isLogin: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.hide()
 
         navView = binding.navView
 
@@ -28,7 +31,9 @@ class MainActivity : AppCompatActivity() {
             navView.isVisible = destination.id != R.id.navigation_detail &&
                     destination.id != R.id.navigation_all_list &&
                     destination.id != R.id.navigation_planned_list &&
-                    destination.id != R.id.navigation_watched_list
+                    destination.id != R.id.navigation_watched_list &&
+                    destination.id != R.id.navigation_login &&
+                    destination.id != R.id.navigation_register
         }
 
         val appBarConfiguration = AppBarConfiguration(
@@ -38,9 +43,15 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        if (isLogin) {
+            val navGraph = navController.navInflater.inflate(R.navigation.mobile_navigation)
+            navGraph.setStartDestination(R.id.navigation_login)
+            navController.graph = navGraph
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment_activity_main).navigateUp()
     }
+
 }

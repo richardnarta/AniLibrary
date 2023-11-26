@@ -41,4 +41,20 @@
     <string name="genre">Genre : %1$s</string>
     <string name="studio">Studios : %1$s</string>
     <string name="append">, %1$s</string>
+
+    <!-- Login and Register Layout -->
+    <string name="welcome_msg">Welcome to AniLibrary</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="password_conf">Confirm Password</string>
+    <string name="info_register">"Don't have an Account yet?"</string>
+    <string name="register_bt">Register now</string>
+    <string name="info_login">Already have an account?</string>
+    <string name="login_bt">Login now</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
