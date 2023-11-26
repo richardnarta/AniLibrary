@@ -46,6 +46,7 @@ class AllListFragment : Fragment() {
         createRecyclerView()
         loadData()
         itemOnClickListener()
+        createSearchView()
 
         return root
     }
@@ -65,9 +66,9 @@ class AllListFragment : Fragment() {
     }
 
     private fun loadData() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.allAnimeList.observe(viewLifecycleOwner){
-                animeAdapter.submitList(it)
+        viewModel.showAllAnimeByQuery("%%") {
+            it.observe(viewLifecycleOwner){animeList->
+                animeAdapter.submitList(animeList)
             }
         }
     }
@@ -81,5 +82,29 @@ class AllListFragment : Fragment() {
                 animeAdapter.notifyDataSetChanged()
             }
         })
+    }
+
+    private fun createSearchView() {
+        searchBar.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    viewModel.showAllAnimeByQuery("%$newText%") {
+                        it.observe(viewLifecycleOwner){animeList->
+                            animeAdapter.submitList(animeList)
+                        }
+                    }
+                }
+                return false
+            }
+        })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

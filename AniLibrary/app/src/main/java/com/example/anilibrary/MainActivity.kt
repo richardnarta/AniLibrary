@@ -9,20 +9,22 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.anilibrary.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navView: BottomNavigationView
-    private var isLogin: Boolean = true
+
+    private val auth: FirebaseAuth = AniLibrary.auth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val user = auth.currentUser
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        supportActionBar?.hide()
 
         navView = binding.navView
 
@@ -43,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        if (isLogin) {
+        if (user == null) {
             val navGraph = navController.navInflater.inflate(R.navigation.mobile_navigation)
             navGraph.setStartDestination(R.id.navigation_login)
             navController.graph = navGraph

@@ -6,12 +6,52 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.anilibrary.model.data.database.AnimeListEntity
 import com.example.anilibrary.model.data.repository.AnimeListRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListViewModel(private val animeListRepository: AnimeListRepository): ViewModel() {
-    val allAnimeList: LiveData<List<AnimeListEntity>> = animeListRepository.allAnime.asLiveData()
-    val allWatchedList: LiveData<List<AnimeListEntity>> = animeListRepository.watchedAnime.asLiveData()
-    val allPlannedList: LiveData<List<AnimeListEntity>> = animeListRepository.plannedAnime.asLiveData()
+    fun showAllAnimeByQuery(query: String,callback: (LiveData<List<AnimeListEntity>>)->Unit){
+        val allAnimeList: LiveData<List<AnimeListEntity>> = animeListRepository.getAllAnimeByQuery(query).asLiveData()
+        callback(allAnimeList)
+    }
+
+    fun showWatchedAnimeByQuery(query: String,callback: (LiveData<List<AnimeListEntity>>)->Unit){
+        val allAnimeList: LiveData<List<AnimeListEntity>> = animeListRepository.getWatchedAnimeByQuery(query).asLiveData()
+        callback(allAnimeList)
+    }
+
+    fun showPlannedAnimeByQuery(query: String,callback: (LiveData<List<AnimeListEntity>>)->Unit){
+        val allAnimeList: LiveData<List<AnimeListEntity>> = animeListRepository.getPlannedAnimeByQuery(query).asLiveData()
+        callback(allAnimeList)
+    }
+
+    fun countAllAnime(callback: (Int)->Unit){
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO){
+                animeListRepository.countAllAnime()
+            }
+            callback(result)
+        }
+    }
+
+    fun countWatchedAnime(callback: (Int)->Unit){
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO){
+                animeListRepository.countWatchedAnime()
+            }
+            callback(result)
+        }
+    }
+
+    fun countPlannedAnime(callback: (Int)->Unit){
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO){
+                animeListRepository.countPlannedAnime()
+            }
+            callback(result)
+        }
+    }
 
     fun deleteAnime(id : Int) = viewModelScope.launch {
         animeListRepository.deleteAnimeFromId(id)

@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.anilibrary.MainActivity
 import com.example.anilibrary.R
 import com.example.anilibrary.databinding.FragmentHomeBinding
 import com.example.anilibrary.model.data.pojo.AnimeNode
@@ -57,6 +58,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        (activity as MainActivity).supportActionBar?.show()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 

@@ -16,8 +16,7 @@
         <action
             android:id="@+id/action_navigation_login_to_navigation_register"
             app:destination="@id/navigation_register"
-            app:popUpTo="@id/navigation_login"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/mobile_navigation"/>
     </fragment>
     <fragment
         android:id="@+id/navigation_register"
@@ -27,10 +26,10 @@
         <action
             android:id="@+id/action_navigation_register_to_navigation_login"
             app:destination="@id/navigation_login"
-            app:popUpTo="@id/navigation_register" />
+            app:popUpTo="@id/mobile_navigation"/>
         <action
             android:id="@+id/action_navigation_register_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            app:destination="@id/navigation_home"/>
     </fragment>
 
     <fragment
@@ -70,6 +69,10 @@
         <action
             android:id="@+id/action_navigation_profile_to_navigation_all_list"
             app:destination="@id/navigation_all_list" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_login"
+            app:destination="@id/navigation_login"
+            app:popUpTo="@id/mobile_navigation" />
     </fragment>
 
     <fragment

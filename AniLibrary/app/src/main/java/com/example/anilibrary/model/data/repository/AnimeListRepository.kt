@@ -6,9 +6,17 @@ import com.example.anilibrary.model.data.database.AnimeListEntity
 import kotlinx.coroutines.flow.Flow
 
 class AnimeListRepository(private val animeDAO: AnimeListDAO) {
-    val allAnime: Flow<List<AnimeListEntity>> = animeDAO.getAllAnime()
-    val watchedAnime: Flow<List<AnimeListEntity>> = animeDAO.getWatchedAnime()
-    val plannedAnime: Flow<List<AnimeListEntity>> = animeDAO.getPlannedAnime()
+    fun getAllAnimeByQuery(query: String): Flow<List<AnimeListEntity>> {
+        return animeDAO.getAllAnimeByQuery(query)
+    }
+
+    fun getWatchedAnimeByQuery(query: String): Flow<List<AnimeListEntity>> {
+        return animeDAO.getWatchedAnimeByQuery(query)
+    }
+
+    fun getPlannedAnimeByQuery(query: String): Flow<List<AnimeListEntity>> {
+        return animeDAO.getPlannedAnimeByQuery(query)
+    }
 
     @WorkerThread
     suspend fun insertAnime(animeData: AnimeListEntity){
@@ -23,5 +31,20 @@ class AnimeListRepository(private val animeDAO: AnimeListDAO) {
     @WorkerThread
     suspend fun isAnimeAdded(id: Int):Int{
         return animeDAO.isAnimeAdded(id)
+    }
+
+    @WorkerThread
+    suspend fun countAllAnime():Int{
+        return animeDAO.countAllAnime()
+    }
+
+    @WorkerThread
+    suspend fun countWatchedAnime():Int{
+        return animeDAO.countWatchedAnime()
+    }
+
+    @WorkerThread
+    suspend fun countPlannedAnime():Int{
+        return animeDAO.countPlannedAnime()
     }
 }

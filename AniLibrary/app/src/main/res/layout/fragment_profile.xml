@@ -1,22 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="56dp"
     tools:context=".ui.fragment.ProfileFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_margin="20dp">
+
+            <ImageView
+                android:id="@+id/edit_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle"
+                android:padding="8dp"
+                android:src="@drawable/edit_icon" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/rounded_rect_bold"
+            android:layout_marginBottom="30dp"/>
+
+        <TextView
+            android:id="@+id/tv_profile"
+            android:layout_width="200dp"
+            android:layout_marginBottom="30dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_rect_bold_name"
+            android:paddingVertical="10dp"
+            android:textAlignment="center"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="22sp"
+            tools:text="razer32"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="30dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/watch_list"
+                android:textAlignment="center"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/allListButton"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded_rect_bold_name"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/all_list"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/allListNumber"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_rect_bold_name"
+                    android:gravity="center"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="20sp"
+                    tools:text="12000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/watchedListButton"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded_rect_bold_name"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/watched"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/watchedListNumber"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_rect_bold_name"
+                    android:gravity="center"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp"
+                    tools:text="6000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/plannedListButton"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded_rect_bold_name"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/planned_list"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/plannedListNumber"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_rect_bold_name"
+                    android:gravity="center"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    tools:text="6000" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/logOutButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:visibility="visible"
+            android:background="@drawable/button"
+            android:text="@string/logout"
+            android:textSize="16sp"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
+</ScrollView>

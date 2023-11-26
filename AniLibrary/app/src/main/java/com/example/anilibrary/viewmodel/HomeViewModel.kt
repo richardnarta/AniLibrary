@@ -14,8 +14,8 @@ import com.example.anilibrary.ui.fragment.HomeFragment
 class HomeViewModel(seasonAnimeRepository: SeasonAnimeRepository): ViewModel() {
 
     val default= arrayOf("fall", "2023")
-    val defaultYear = arrayOf(2023, 2022)
-    val defaultSeason = arrayOf("Fall", "Summer", "Spring", "Winter")
+    private val defaultYear = arrayOf(2023, 2022)
+    private val defaultSeason = arrayOf("Fall", "Summer", "Spring", "Winter")
     val currentSeason = MutableLiveData(default)
     var season = MutableLiveData(defaultSeason)
     val year = MutableLiveData(defaultYear)
