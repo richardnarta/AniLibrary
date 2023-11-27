@@ -6,6 +6,17 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
+        android:id="@+id/navigation_onBoarding"
+        android:name="com.example.anilibrary.ui.fragment.viewpager.OnBoardingFragment"
+        android:label="@string/title_on_boarding"
+        tools:layout="@layout/fragment_on_boarding">
+        <action
+            android:id="@+id/action_navigation_onBoarding_to_navigation_login"
+            app:destination="@id/navigation_login"
+            app:popUpTo="@id/mobile_navigation" />
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_login"
         android:name="com.example.anilibrary.ui.fragment.LoginFragment"
         android:label="@string/login"

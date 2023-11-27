@@ -21,4 +21,11 @@
     <style name="CardView.Color" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">@color/purple_cv</item>
     </style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">?android:colorBackground</item>
+        <item name="windowSplashScreenAnimationDuration">2000</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo_day</item>
+        <item name="postSplashScreenTheme">@style/Theme.AniLibrary</item>
+    </style>
 </resources>

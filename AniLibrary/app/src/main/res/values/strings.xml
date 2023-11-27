@@ -7,6 +7,7 @@
     <string name="title_all_list">All Anime List</string>
     <string name="title_watched_list">Watched Anime List</string>
     <string name="title_planned_list">Planned Anime List</string>
+    <string name="title_on_boarding">OnBoarding</string>
 
     <!--    Home Layout-->
     <string name="home_title">%1$s - %2$s</string>
@@ -60,4 +61,10 @@
     <string name="login_bt">Login now</string>
 
     <string name="logout">Logout</string>
+    <string name="next">Next</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip">Skip</string>
+    <string name="onboard_1">Discover the world of anime with AniLibrary, a cutting-edge mobile app designed for your anime cravings</string>
+    <string name="onboard_2">AniLibrary is an innovative and user-friendly mobile app showcasing the latest seasonal anime releases</string>
+    <string name="onboard_3">Explore and personalize your anime watchlist with our intuitive featured lists feature with AniLibrary!</string>
 </resources>
