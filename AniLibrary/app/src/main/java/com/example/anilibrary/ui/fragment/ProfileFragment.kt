@@ -2,25 +2,20 @@ package com.example.anilibrary.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.anilibrary.AniLibrary
 import com.example.anilibrary.MainActivity
 import com.example.anilibrary.databinding.FragmentProfileBinding
 import com.example.anilibrary.model.data.database.AnimeListDatabase
 import com.example.anilibrary.model.data.repository.AnimeListRepository
 import com.example.anilibrary.viewmodel.DBViewModelFactory
-import com.example.anilibrary.viewmodel.ListViewModel
 import com.example.anilibrary.viewmodel.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -33,7 +28,7 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ListViewModel by viewModels {
+    private val viewModel: ProfileViewModel by viewModels {
         DBViewModelFactory(repository)
     }
 
@@ -57,10 +52,7 @@ class ProfileFragment : Fragment() {
         binding.apply {
             val user = auth.currentUser
             user?.let {
-                Log.d("Url", "${it.photoUrl}")
                 Glide.with(requireContext()).load(it.photoUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE )
-                    .skipMemoryCache(true)
                     .into(ivProfile)
                 tvProfile.text = it.displayName
 

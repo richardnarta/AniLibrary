@@ -9,7 +9,7 @@
         android:id="@+id/nav_view"
         android:layout_width="0dp"
         android:layout_height="@dimen/bottom_nav_height"
-        app:itemIconSize="36dp"
+        app:itemIconSize="28dp"
         style="@style/BottomNavigationView"
         app:labelVisibilityMode="unlabeled"
         app:itemHorizontalTranslationEnabled="false"

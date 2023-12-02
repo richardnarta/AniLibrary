@@ -24,6 +24,8 @@ class DBViewModelFactory(private val repository: AnimeListRepository): ViewModel
             return DetailViewModel(repository) as T
         }else if(modelClass.isAssignableFrom(ListViewModel::class.java)){
             return ListViewModel(repository) as T
+        }else if(modelClass.isAssignableFrom(ProfileViewModel::class.java)){
+            return ProfileViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

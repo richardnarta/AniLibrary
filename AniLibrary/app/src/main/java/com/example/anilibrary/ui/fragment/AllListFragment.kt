@@ -2,13 +2,16 @@ package com.example.anilibrary.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.anilibrary.databinding.FragmentAllListBinding
 import com.example.anilibrary.model.data.database.AnimeListDatabase
@@ -68,6 +71,8 @@ class AllListFragment : Fragment() {
     private fun loadData() {
         viewModel.showAllAnimeByQuery("%%") {
             it.observe(viewLifecycleOwner){animeList->
+                binding.emptyListScreen.root.isVisible = animeList.isEmpty()
+                recyclerView.isVisible = animeList.isNotEmpty()
                 animeAdapter.submitList(animeList)
             }
         }
@@ -77,9 +82,13 @@ class AllListFragment : Fragment() {
         animeAdapter.setOnClickListener(object :
             AnimeListAdapter.OnClickListener{
             @SuppressLint("NotifyDataSetChanged")
-            override fun onClick(position: Int, model: AnimeListEntity) {
+            override fun onRemoveClick(position: Int, model: AnimeListEntity) {
                 viewModel.deleteAnime(model.id!!)
                 animeAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCardClick(position: Int, model: AnimeListEntity) {
+                findNavController().navigate(AllListFragmentDirections.actionNavigationAllListToNavigationDetail(model.id!!))
             }
         })
     }

@@ -129,17 +129,29 @@
         android:id="@+id/navigation_all_list"
         android:name="com.example.anilibrary.ui.fragment.AllListFragment"
         android:label="@string/title_all_list"
-        tools:layout="@layout/fragment_all_list"/>
+        tools:layout="@layout/fragment_all_list">
+        <action
+            android:id="@+id/action_navigation_all_list_to_navigation_detail"
+            app:destination="@id/navigation_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_watched_list"
         android:name="com.example.anilibrary.ui.fragment.WatchedListFragment"
         android:label="@string/title_watched_list"
-        tools:layout="@layout/fragment_watched_list"/>
+        tools:layout="@layout/fragment_watched_list">
+        <action
+            android:id="@+id/action_navigation_watched_list_to_navigation_detail"
+            app:destination="@id/navigation_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_planned_list"
         android:name="com.example.anilibrary.ui.fragment.PlannedListFragment"
         android:label="@string/title_planned_list"
-        tools:layout="@layout/fragment_planned_list"/>
+        tools:layout="@layout/fragment_planned_list">
+        <action
+            android:id="@+id/action_navigation_planned_list_to_navigation_detail"
+            app:destination="@id/navigation_detail" />
+    </fragment>
 </navigation>

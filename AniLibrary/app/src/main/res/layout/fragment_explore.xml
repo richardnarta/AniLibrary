@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:text="@string/explore_text"
             android:fontFamily="sans-serif"
-            android:textColor="@color/black"
+            android:textColor="?android:textColorPrimary"
             android:textSize="20sp"/>
     </LinearLayout>
 

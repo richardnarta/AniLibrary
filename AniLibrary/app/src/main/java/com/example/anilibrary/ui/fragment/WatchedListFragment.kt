@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.anilibrary.databinding.FragmentWatchedListBinding
 import com.example.anilibrary.model.data.database.AnimeListDatabase
@@ -65,6 +67,8 @@ class WatchedListFragment : Fragment() {
     private fun loadData() {
         viewModel.showWatchedAnimeByQuery("%%") {
             it.observe(viewLifecycleOwner){animeList->
+                binding.emptyListScreen.root.isVisible = animeList.isEmpty()
+                recyclerView.isVisible = animeList.isNotEmpty()
                 animeAdapter.submitList(animeList)
             }
         }
@@ -74,9 +78,13 @@ class WatchedListFragment : Fragment() {
         animeAdapter.setOnClickListener(object :
             AnimeListAdapter.OnClickListener{
             @SuppressLint("NotifyDataSetChanged")
-            override fun onClick(position: Int, model: AnimeListEntity) {
+            override fun onRemoveClick(position: Int, model: AnimeListEntity) {
                 viewModel.deleteAnime(model.id!!)
                 animeAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCardClick(position: Int, model: AnimeListEntity) {
+                findNavController().navigate(WatchedListFragmentDirections.actionNavigationWatchedListToNavigationDetail(model.id!!))
             }
         })
     }

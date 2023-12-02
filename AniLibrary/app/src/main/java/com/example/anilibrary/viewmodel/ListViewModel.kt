@@ -26,33 +26,6 @@ class ListViewModel(private val animeListRepository: AnimeListRepository): ViewM
         callback(allAnimeList)
     }
 
-    fun countAllAnime(callback: (Int)->Unit){
-        viewModelScope.launch {
-            val result = withContext(Dispatchers.IO){
-                animeListRepository.countAllAnime()
-            }
-            callback(result)
-        }
-    }
-
-    fun countWatchedAnime(callback: (Int)->Unit){
-        viewModelScope.launch {
-            val result = withContext(Dispatchers.IO){
-                animeListRepository.countWatchedAnime()
-            }
-            callback(result)
-        }
-    }
-
-    fun countPlannedAnime(callback: (Int)->Unit){
-        viewModelScope.launch {
-            val result = withContext(Dispatchers.IO){
-                animeListRepository.countPlannedAnime()
-            }
-            callback(result)
-        }
-    }
-
     fun deleteAnime(id : Int) = viewModelScope.launch {
         animeListRepository.deleteAnimeFromId(id)
     }

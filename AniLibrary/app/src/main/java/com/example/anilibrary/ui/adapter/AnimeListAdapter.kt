@@ -49,6 +49,14 @@ class AnimeListAdapter(private val fragment: Fragment) : ListAdapter<AnimeListEn
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentAnime = getItem(position)
 
+        holder.itemView.setOnClickListener {
+            if(onClickListener!=null){
+                if (currentAnime != null){
+                    onClickListener!!.onCardClick(position, currentAnime)
+                }
+            }
+        }
+
         if(holder is BlueViewHolder){
             holder.binding.apply {
                 Glide.with(holder.itemView.context)
@@ -84,7 +92,7 @@ class AnimeListAdapter(private val fragment: Fragment) : ListAdapter<AnimeListEn
                 holder.binding.ivBin.setOnClickListener {
                     if (onClickListener!=null){
                         if (currentAnime != null) {
-                            onClickListener!!.onClick(position, currentAnime)
+                            onClickListener!!.onRemoveClick(position, currentAnime)
                         }
                     }
                 }
@@ -124,7 +132,7 @@ class AnimeListAdapter(private val fragment: Fragment) : ListAdapter<AnimeListEn
                 holder.binding.ivBin.setOnClickListener {
                     if (onClickListener!=null){
                         if (currentAnime != null) {
-                            onClickListener!!.onClick(position, currentAnime)
+                            onClickListener!!.onRemoveClick(position, currentAnime)
                         }
                     }
                 }
@@ -133,7 +141,8 @@ class AnimeListAdapter(private val fragment: Fragment) : ListAdapter<AnimeListEn
     }
 
     interface OnClickListener{
-        fun onClick(position: Int, model: AnimeListEntity)
+        fun onRemoveClick(position: Int, model: AnimeListEntity)
+        fun onCardClick(position: Int, model: AnimeListEntity)
     }
 
     fun setOnClickListener(onClickListener: OnClickListener){

@@ -29,6 +29,7 @@
 
     <string name="dummy_rating">★ 8.06</string>
     <string name="explore_text">Explore new anime here!</string>
+    <string name="empty_list_info">Add your watchlist by accessing the anime poster!</string>
 
     <!-- Detail Layout -->
     <string name="synopsis">Synopsis</string>
@@ -80,7 +81,5 @@
     <string name="current_password">Current Password</string>
     <string name="new_password">New Password</string>
     <string name="new_email">New Email</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello">Hello</string>
 </resources>

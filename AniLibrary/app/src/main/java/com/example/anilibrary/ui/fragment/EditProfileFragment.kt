@@ -14,13 +14,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -28,18 +26,13 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
 import java.io.File
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import okhttp3.internal.wait
-import kotlin.concurrent.thread
 
 
 class EditProfileFragment : Fragment() {
@@ -105,8 +98,6 @@ class EditProfileFragment : Fragment() {
                 editUsername.hint = it.displayName
                 if (it.photoUrl != null) {
                     Glide.with(requireContext()).load(it.photoUrl)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE )
-                        .skipMemoryCache(true)
                         .into(ivProfile)
                 }
             }
@@ -157,7 +148,6 @@ class EditProfileFragment : Fragment() {
         username = binding.editUsername.text.toString()
         gender = binding.editGender.text.toString()
         val checkUri = imageUri
-        var snackBar: Snackbar? = null
         if (username!!.isNotEmpty() || gender!!.isNotEmpty() || checkUri != null) {
             Toast.makeText(requireContext(), "Updating profile, Please wait...", Toast.LENGTH_SHORT).show()
         }
