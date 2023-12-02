@@ -1,6 +1,9 @@
 package com.example.anilibrary.ui.fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +17,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.ui.graphics.Color
 import androidx.core.content.FileProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.database.DataSnapshot
@@ -26,6 +33,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
 import java.io.File
 import com.bumptech.glide.Glide
+import com.example.anilibrary.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.CompletableDeferred
@@ -58,11 +66,54 @@ class EditProfileFragment : Fragment() {
         val root: View = binding.root
 
         itemOnClickListener()
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (binding.editUsername.text.isNotEmpty() || binding.editGender.text.isNotEmpty()) {
+                        Log.d("log", binding.editUsername.text.toString())
+                        showDiscardChangesDialog()
+                    } else {
+                        requireActivity().supportFragmentManager.popBackStack()
+                    }
+                }
+            }
+        )
+        setHasOptionsMenu(true)
 
         CoroutineScope(Dispatchers.Main).launch {
             bindUserData()
         }
         return root
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                if (binding.editUsername.text.isNotEmpty() || binding.editGender.text.isNotEmpty()) {
+                    Log.d("log", binding.editUsername.text.toString())
+                    showDiscardChangesDialog()
+                } else {
+                    requireActivity().supportFragmentManager.popBackStack()
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showDiscardChangesDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setTitle("Discard Changes")
+        alertDialogBuilder.setMessage("Do you want to discard changes?")
+        alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+        alertDialogBuilder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        alertDialogBuilder.create().show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

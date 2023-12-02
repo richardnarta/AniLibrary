@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:paddingHorizontal="20dp"
     tools:context=".ui.fragment.ChangeEmailFragment">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -20,7 +21,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/current_password"
             android:inputType="textPassword"
-            android:background="@color/white"/>
+            style="@style/EditText.Background"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/new_email"
             android:inputType="textEmailAddress"
-            android:background="@color/white"/>
+            style="@style/EditText.Background"/>
     </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/buttonSave"

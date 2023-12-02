@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,7 +19,13 @@ import com.example.anilibrary.model.data.repository.AnimeListRepository
 import com.example.anilibrary.viewmodel.DBViewModelFactory
 import com.example.anilibrary.viewmodel.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.IOException
+import java.net.InetSocketAddress
+import java.net.Socket
 
 class ProfileFragment : Fragment() {
 
@@ -47,6 +54,20 @@ class ProfileFragment : Fragment() {
 
         return root
     }
+    private suspend fun isInternetConnected(): Boolean {
+        return try {
+            val socket = Socket()
+            withContext(Dispatchers.IO) {
+                socket.connect(InetSocketAddress("8.8.8.8", 53), 1500)
+            }
+            withContext(Dispatchers.IO) {
+                socket.close()
+            }
+            true
+        } catch (e: IOException) {
+            false
+        }
+    }
 
     private fun bindUserData() {
         binding.apply {
@@ -73,7 +94,16 @@ class ProfileFragment : Fragment() {
     private fun itemOnClickListener() {
         binding.apply {
             editProfile.setOnClickListener {
-                findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationEditProfile())
+                GlobalScope.launch(Dispatchers.IO) {
+                    val isInternetAvailable = isInternetConnected()
+                    launch(Dispatchers.Main) {
+                        if (isInternetAvailable) {
+                            findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationEditProfile())
+                        } else {
+                            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
             allListButton.setOnClickListener{
                 findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationAllList())
