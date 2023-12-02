@@ -1,6 +1,8 @@
 package com.example.anilibrary
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navView: BottomNavigationView
+    private lateinit var sp: SharedPreferences
 
     private val auth: FirebaseAuth = AniLibrary.auth
 
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
 
         val user = auth.currentUser
+        sp = applicationContext.getSharedPreferences("AppData", Context.MODE_PRIVATE)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -43,7 +47,10 @@ class MainActivity : AppCompatActivity() {
                     destination.id != R.id.navigation_watched_list &&
                     destination.id != R.id.navigation_login &&
                     destination.id != R.id.navigation_register&&
-                    destination.id != R.id.navigation_onBoarding
+                    destination.id != R.id.navigation_onBoarding &&
+                    destination.id != R.id.navigation_edit_profile &&
+                    destination.id != R.id.navigation_change_password &&
+                    destination.id != R.id.navigation_change_email
         }
 
         val appBarConfiguration = AppBarConfiguration(
@@ -60,7 +67,14 @@ class MainActivity : AppCompatActivity() {
                 supportActionBar?.hide()
             }
             val navGraph = navController.navInflater.inflate(R.navigation.mobile_navigation)
-            navGraph.setStartDestination(R.id.navigation_onBoarding)
+            if (sp.getBoolean("isFirstOpen", true)) {
+                val editor: SharedPreferences.Editor = sp.edit()
+                editor.putBoolean("isFirstOpen", false)
+                editor.apply()
+                navGraph.setStartDestination(R.id.navigation_onBoarding)
+            } else {
+                navGraph.setStartDestination(R.id.navigation_login)
+            }
             navController.graph = navGraph
         }
     }

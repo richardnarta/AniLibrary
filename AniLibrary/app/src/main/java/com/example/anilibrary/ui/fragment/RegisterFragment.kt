@@ -49,26 +49,40 @@ class RegisterFragment : Fragment() {
         val passConf = binding.inputPasswordConf.text.toString()
 
         if (email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty() && passConf.isNotEmpty()) {
-            if (password == passConf) {
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            val user = auth.currentUser
-                            val userprofile = UserProfileChangeRequest.Builder()
-                                .setDisplayName(username)
-                                .build()
-                            user?.updateProfile(userprofile)
-                            findNavController().navigate(RegisterFragmentDirections.actionNavigationRegisterToNavigationHome())
-                        } else {
-                            Toast.makeText(requireContext(), "Failed to register", Toast.LENGTH_SHORT).show()
-                        }
+            if (emailFilterCondition(email)) {
+                if (password == passConf) {
+                    if (passwordFilterCondition(password)) {
+                        auth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    val user = auth.currentUser
+                                    val userprofile = UserProfileChangeRequest.Builder()
+                                        .setDisplayName(username)
+                                        .build()
+                                    user?.updateProfile(userprofile)
+                                    findNavController().navigate(RegisterFragmentDirections.actionNavigationRegisterToNavigationHome())
+                                } else {
+                                    Toast.makeText(requireContext(), "Failed to register", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                    } else {
+                        Toast.makeText(requireContext(), "Password must be 8 characters or more and contain letters and numbers", Toast.LENGTH_SHORT).show()
                     }
+                } else {
+                    Toast.makeText(requireContext(), "Password and Confirm Password do not match", Toast.LENGTH_SHORT).show()
+                }
             } else {
-                Toast.makeText(requireContext(), "Password...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Invalid email format", Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(requireContext(),"Fill all the fields!", Toast.LENGTH_SHORT).show()
         }
+    }
+    private fun passwordFilterCondition(input: String): Boolean {
+        return input.matches(Regex("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"))
+    }
+    private fun emailFilterCondition(input: String): Boolean {
+        return input.matches(Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\$"))
     }
 
     override fun onDestroyView() {

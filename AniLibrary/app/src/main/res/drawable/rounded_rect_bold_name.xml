@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <corners
-        android:radius="10dp"/>
-    <stroke
-        android:width="2dp"
-        android:color="@color/purple_10" />
-    <solid android:color="@android:color/transparent"/>
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Rectangle with rounded corners -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="10dp" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <!-- Line at the bottom -->
+    <item android:gravity="bottom">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/purple_10" />
+            <size android:height="2dp" />
+        </shape>
+    </item>
+</layer-list>

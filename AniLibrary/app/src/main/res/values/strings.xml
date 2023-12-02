@@ -3,6 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_explore">Explore</string>
     <string name="title_profile">Profile</string>
+    <string name="title_edit_profile">Edit Profile</string>
+    <string name="title_change_password">Change Password</string>
+    <string name="title_change_email">Change Email</string>
     <string name="title_detail">Anime Detail</string>
     <string name="title_all_list">All Anime List</string>
     <string name="title_watched_list">Watched Anime List</string>
@@ -67,4 +70,17 @@
     <string name="onboard_1">Discover the world of anime with AniLibrary, a cutting-edge mobile app designed for your anime cravings</string>
     <string name="onboard_2">AniLibrary is an innovative and user-friendly mobile app showcasing the latest seasonal anime releases</string>
     <string name="onboard_3">Explore and personalize your anime watchlist with our intuitive featured lists feature with AniLibrary!</string>
+
+    <!-- Edit Profile Layout -->
+    <string name="change_password">Change current Password</string>
+    <string name="change_email">Change current Email</string>
+    <string name="buttonSave">Save Changes</string>
+    <string name="discardChanges">Discard Changes</string>
+    <string name="gender">Gender</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="new_email">New Email</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello">Hello</string>
 </resources>

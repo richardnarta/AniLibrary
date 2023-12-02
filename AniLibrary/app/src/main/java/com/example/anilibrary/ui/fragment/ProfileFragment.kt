@@ -2,6 +2,7 @@ package com.example.anilibrary.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.anilibrary.AniLibrary
 import com.example.anilibrary.MainActivity
 import com.example.anilibrary.databinding.FragmentProfileBinding
@@ -44,14 +47,24 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        showListAmount()
+        bindUserData()
         itemOnClickListener()
 
         return root
     }
 
-    private fun showListAmount() {
+    private fun bindUserData() {
         binding.apply {
+            val user = auth.currentUser
+            user?.let {
+                Log.d("Url", "${it.photoUrl}")
+                Glide.with(requireContext()).load(it.photoUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE )
+                    .skipMemoryCache(true)
+                    .into(ivProfile)
+                tvProfile.text = it.displayName
+
+            }
             viewModel.countAllAnime { allAnimeAmount->
                 binding.allListNumber.text = allAnimeAmount.toString()
             }
@@ -67,6 +80,9 @@ class ProfileFragment : Fragment() {
     @SuppressLint("RestrictedApi")
     private fun itemOnClickListener() {
         binding.apply {
+            editProfile.setOnClickListener {
+                findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationEditProfile())
+            }
             allListButton.setOnClickListener{
                 findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationAllList())
             }
