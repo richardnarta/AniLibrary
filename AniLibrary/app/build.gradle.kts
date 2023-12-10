@@ -57,6 +57,13 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics:18.6.0")
     implementation("com.google.firebase:firebase-analytics:21.5.0")
     testImplementation("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-core:5.5.0")
+    testImplementation ("org.mockito:mockito-inline:5.2.0")
+    testImplementation ("androidx.test:core:1.5.0")
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    testImplementation ("org.robolectric:robolectric:4.11.1")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:4.0.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
@@ -107,4 +114,9 @@ dependencies {
 
     //Firebase UI Storage
     implementation ("com.firebaseui:firebase-ui-storage:8.0.2")
+
+    //MockWebServer
+    androidTestImplementation ("com.squareup.okhttp3:mockwebserver:4.12.0")
+
+
 }
