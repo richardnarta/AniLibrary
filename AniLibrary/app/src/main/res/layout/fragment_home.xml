@@ -43,7 +43,7 @@
     <Spinner
         android:id="@+id/spinnerSeason"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:background="@drawable/rounded_rect"
         style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_marginHorizontal="15dp"

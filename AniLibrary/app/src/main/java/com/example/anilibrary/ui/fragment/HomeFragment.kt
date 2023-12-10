@@ -1,7 +1,7 @@
 package com.example.anilibrary.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.AdapterView
-import android.widget.AutoCompleteTextView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.isVisible
@@ -53,12 +52,21 @@ class HomeFragment : Fragment() {
     private lateinit var reloadButton: Button
     private lateinit var bookMark: ImageView
 
+    @SuppressLint("RestrictedApi")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if(activity is MainActivity){
+            lifecycleScope.launch {
+                (activity as MainActivity).supportActionBar?.show()
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        (activity as MainActivity).supportActionBar?.show()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -106,7 +114,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        loadingAdapter = LoadingAdapter(1, arrayOf(1,2,3,4,5,6))
+        loadingAdapter = LoadingAdapter(1, arrayOf(1,2,3,4))
         loadingRecyclerView.apply {
             adapter = loadingAdapter
         }
@@ -119,11 +127,10 @@ class HomeFragment : Fragment() {
         var season = viewModel.season.value!!
         val seasonWithYear: Array<Array<String>> = Array(4) { Array(4) { "" } }
         var itemAdapter: MutableList<String> = mutableListOf()
-        var updatedPosition = 0
+        var updatedPosition: Int
 
         if (!viewModel.currentSeason.value.contentEquals(viewModel.default)) {
             currentSeason = viewModel.currentSeason.value!!
-            var temp = currentSeason
         }
 
         fun bindYear() {

@@ -56,6 +56,8 @@ dependencies {
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation("com.google.firebase:firebase-crashlytics:18.6.0")
     implementation("com.google.firebase:firebase-analytics:21.5.0")
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2")
+    implementation("androidx.test.espresso:espresso-contrib:3.5.1")
     testImplementation("junit:junit:4.13.2")
     testImplementation ("org.mockito:mockito-core:5.5.0")
     testImplementation ("org.mockito:mockito-inline:5.2.0")
@@ -117,6 +119,4 @@ dependencies {
 
     //MockWebServer
     androidTestImplementation ("com.squareup.okhttp3:mockwebserver:4.12.0")
-
-
 }
