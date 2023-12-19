@@ -75,7 +75,7 @@ The app’s unique edge lies in its consolidation of anime-related content, elim
     - Kotlin KAPT for annotation processing.
 
 ## Figma
-![image](https://github.com/rayhan-121140002/readme-anilibrary/assets/19744944/5f92aa2b-f236-48d0-92a5-2536aa993144)
+![Figma](https://cdn.discordapp.com/attachments/1161566763306205194/1186638170004144240/image.png?ex=6593f9ea&is=658184ea&hm=2d12ab2a80338e10a4faf7eb6cb003e758c508e41b191bcc4ea1673dafaef534&)
 
 - Wireframe: https://www.figma.com/file/mUHGosAplRX59zle91sB4A/AniLibrary?type=design&node-id=35-0&mode=design&t=eqevP53u0gMkIUWp-0
 - Prototype: https://www.figma.com/proto/mUHGosAplRX59zle91sB4A/AniLibrary?type=design&node-id=35-0&t=yVPZ2AtkV19Bsf14-0&scaling=min-zoom&starting-point-node-id=35%3A4638
