@@ -2,7 +2,6 @@ package com.example.anilibrary
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase

@@ -80,7 +80,7 @@
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/tv_title"
-                        android:layout_width="290dp"
+                        android:layout_width="288dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:textSize="20sp"
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:textSize="15sp"
-                        tools:text="The Quintessential Quintuplets 2"/>
+                        tools:text="五等分の花嫁 ∬"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="textEnd"
                         android:fontFamily="sans-serif"
-                        android:textColor="?android:textColorPrimary"
+                        android:textColor="@color/orange"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         tools:text="★ 8.06"/>
@@ -140,15 +140,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp">
+
                 <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="183dp"
+                    android:layout_height="260dp"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="0dp">
                     <ImageView
                         android:id="@+id/iv_img"
-                        android:layout_width="190dp"
-                        android:layout_height="265dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
                         tools:src="@drawable/poster"/>
                 </androidx.cardview.widget.CardView>
                 <LinearLayout
@@ -240,6 +242,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
                 android:gravity="bottom">
                 <LinearLayout
                     android:layout_width="match_parent"

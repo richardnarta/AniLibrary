@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.isVisible
@@ -76,6 +76,7 @@ class HomeFragment : Fragment() {
         loadingView()
         loadData()
         itemOnClickListener()
+        scrollUp()
 
         return root
     }
@@ -182,7 +183,9 @@ class HomeFragment : Fragment() {
                         spinner.setSelection(updatedPosition)
                         updateSeasonViewModel(updatedPosition)
                     } else if (itemAdapter[0].contains("Fall 2023")) {
-                        updateSeasonViewModel(1)
+                        if (seasonTitle.text != "Summer - 2023"){
+                            updateSeasonViewModel(1)
+                        }
                     }
                 } else {
                     firstOpen = false
@@ -211,7 +214,7 @@ class HomeFragment : Fragment() {
                     position = 1
                 } else if (pos<1 && !itemAdapter[pos].contains("Fall 2023")) {
                     seasonTemp.add(season[3])
-                    for (i in pos..2) {
+                    for (i in 0..2) {
                         seasonTemp.add(season[i])
                     }
                     if(seasonTemp[3] == "Spring") {
@@ -237,6 +240,7 @@ class HomeFragment : Fragment() {
         animeAdapter.addLoadStateListener { state->
             binding.shimmerView.isVisible = state.source.refresh is LoadState.Loading
             loadingRecyclerView.isVisible = state.source.refresh is LoadState.Loading
+            binding.errorMessage.isVisible = animeAdapter.itemCount == 0 && state.source.refresh is LoadState.Error
             recyclerView.isVisible = state.source.refresh is LoadState.NotLoading && animeAdapter.itemCount > 0
         }
 
@@ -271,6 +275,17 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun scrollUp(){
+        if((activity as MainActivity).checkNavView()){
+            (activity as MainActivity).navView.setOnNavigationItemReselectedListener { item ->
+                when (item.itemId) {
+                    R.id.navigation_home -> {
+                        recyclerView.smoothScrollToPosition(0)
+                    }
+                }
+            }
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

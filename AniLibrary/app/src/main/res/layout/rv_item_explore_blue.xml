@@ -127,6 +127,7 @@
                             android:ellipsize="end"
                             android:textAlignment="viewEnd"
                             android:fontFamily="sans-serif"
+                            android:textColor="@color/orange"
                             android:maxLines="1"
                             tools:text="★ 8.06"
                             android:textSize="26sp"/>

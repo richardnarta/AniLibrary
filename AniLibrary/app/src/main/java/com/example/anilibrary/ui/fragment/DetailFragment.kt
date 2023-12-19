@@ -14,7 +14,6 @@ import com.example.anilibrary.databinding.FragmentDetailBinding
 import com.example.anilibrary.model.data.util.DetailAnimeSource
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import com.example.anilibrary.R
 import com.example.anilibrary.model.data.database.AnimeListDatabase
 import com.example.anilibrary.model.data.database.AnimeListEntity
@@ -82,9 +81,8 @@ class DetailFragment : Fragment() {
                         tvRating.text = getString(R.string.rating, dataAnime.rating.toString())
                     }
                     tvUser.text = getString(R.string.users, dataAnime.numUsers.toString())
-                    Glide.with(context)
+                    Glide.with(requireContext())
                         .load(dataAnime?.mainPicture?.large)
-                        .apply(RequestOptions().override(190, 265))
                         .transition(DrawableTransitionOptions.withCrossFade()).centerInside()
                         .into(ivImg)
                     tvSynopsis.text = dataAnime.synopsis
@@ -160,17 +158,12 @@ class DetailFragment : Fragment() {
                     "watched",
                     dataAnime.mainPicture?.large!!,
                     dataAnime.title!!,
-                    dataAnime.startSeason?.season!!,
-                    dataAnime.startSeason?.year!!,
+                    dataAnime.startSeason?.season,
+                    dataAnime.startSeason?.year,
                     dataAnime.rating))
             }
-            viewModel.checkAnime(args.id){
-                if(it == 1){
-                    Snackbar.make(binding.root, "Anime is added successfully to your anime watched list!", Snackbar.LENGTH_SHORT).show()
-                }else{
-                    Snackbar.make(binding.root, "Fail to update your list, Try Again!", Snackbar.LENGTH_SHORT).show()
-                }
-            }
+
+            checkAnimeInDatabase(args.id, "watched")
         }
 
         binding.PlannedButton.setOnClickListener {
@@ -183,14 +176,26 @@ class DetailFragment : Fragment() {
                     dataAnime.startSeason?.year,
                     dataAnime.rating))
             }
-            viewModel.checkAnime(args.id){
+
+            checkAnimeInDatabase(args.id, "planned")
+        }
+    }
+
+    private fun checkAnimeInDatabase(id:Int, type:String){
+        Handler().postDelayed({
+            viewModel.checkAnime(id){
                 if(it == 1){
-                    Snackbar.make(binding.root, "Anime is added successfully to your anime planned list!", Snackbar.LENGTH_SHORT).show()
+                    if(type == "watched"){
+                        Snackbar.make(binding.root, "Anime is added successfully to your anime watched list!", Snackbar.LENGTH_INDEFINITE).setDuration(1000).show()
+                    }else{
+                        Snackbar.make(binding.root, "Anime is added successfully to your anime planned list!", Snackbar.LENGTH_INDEFINITE).setDuration(1000).show()
+                    }
+
                 }else{
-                    Snackbar.make(binding.root, "Fail to update your list, Try Again!", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, "Fail to update your list, Try Again!", Snackbar.LENGTH_INDEFINITE).setDuration(1000).show()
                 }
             }
-        }
+        }, 200)
     }
 
     override fun onDestroyView() {

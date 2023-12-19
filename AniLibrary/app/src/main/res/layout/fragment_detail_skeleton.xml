@@ -75,8 +75,8 @@
                 app:cardElevation="0dp">
 
                 <ImageView
-                    android:layout_width="190dp"
-                    android:layout_height="265dp"
+                    android:layout_width="183dp"
+                    android:layout_height="260dp"
                     android:background="@color/grey"/>
             </androidx.cardview.widget.CardView>
 

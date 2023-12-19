@@ -6,9 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.anilibrary.model.data.database.AnimeListEntity
 import com.example.anilibrary.model.data.repository.AnimeListRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ListViewModel(private val animeListRepository: AnimeListRepository): ViewModel() {
     fun showAllAnimeByQuery(query: String,callback: (LiveData<List<AnimeListEntity>>)->Unit){

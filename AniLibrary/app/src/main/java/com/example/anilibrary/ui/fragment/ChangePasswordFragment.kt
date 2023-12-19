@@ -14,7 +14,6 @@ import com.example.anilibrary.databinding.FragmentChangePasswordBinding
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 
-
 class ChangePasswordFragment : Fragment() {
     private var _binding: FragmentChangePasswordBinding? = null
     private val binding get() = _binding!!

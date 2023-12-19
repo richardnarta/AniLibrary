@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.anilibrary.model.data.util.Constants
 import com.example.anilibrary.model.data.util.Constants.ANIME_TABLE
 import kotlinx.coroutines.flow.Flow
 

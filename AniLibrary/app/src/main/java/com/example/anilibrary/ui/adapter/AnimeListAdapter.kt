@@ -61,7 +61,6 @@ class AnimeListAdapter(private val fragment: Fragment) : ListAdapter<AnimeListEn
             holder.binding.apply {
                 Glide.with(holder.itemView.context)
                     .load(currentAnime?.animePoster)
-                    .apply(RequestOptions().override(169, 500))
                     .transition(DrawableTransitionOptions.withCrossFade()).centerInside()
                     .into(ivImg)
 
@@ -101,7 +100,6 @@ class AnimeListAdapter(private val fragment: Fragment) : ListAdapter<AnimeListEn
             holder.binding.apply {
                 Glide.with(holder.itemView.context)
                     .load(currentAnime?.animePoster)
-                    .apply(RequestOptions().override(169, 500))
                     .transition(DrawableTransitionOptions.withCrossFade()).centerInside()
                     .into(ivImg)
 

@@ -1,5 +1,7 @@
 package com.example.anilibrary.ui.fragment.viewpager
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,12 +16,16 @@ class FirstOnBoardingFragment : Fragment() {
     private var _binding: FragmentFirstOnBoardingBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var sp: SharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFirstOnBoardingBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        sp = requireContext().getSharedPreferences("AppData", Context.MODE_PRIVATE)
 
         val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
 
@@ -28,6 +34,9 @@ class FirstOnBoardingFragment : Fragment() {
         }
 
         binding.skip.setOnClickListener {
+            val editor: SharedPreferences.Editor = sp.edit()
+            editor.putBoolean("isFirstOpen", false)
+            editor.apply()
             findNavController().navigate(OnBoardingFragmentDirections.actionNavigationOnBoardingToNavigationLogin())
         }
 

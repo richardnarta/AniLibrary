@@ -2,7 +2,6 @@ package com.example.anilibrary.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import com.example.anilibrary.MainActivity
 import com.example.anilibrary.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
-
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null

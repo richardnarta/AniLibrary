@@ -8,9 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.anilibrary.AniLibrary
-import com.example.anilibrary.MainActivity
-import com.example.anilibrary.R
-import com.example.anilibrary.databinding.FragmentLoginBinding
 import com.example.anilibrary.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest

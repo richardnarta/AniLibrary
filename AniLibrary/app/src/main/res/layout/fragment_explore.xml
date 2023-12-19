@@ -14,6 +14,7 @@
         app:iconifiedByDefault="false"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="10dp"
+        app:queryBackground="@android:color/transparent"
         app:queryHint="Search Anime"
         android:background="@drawable/rounded_rect"
         android:layout_width="match_parent"
@@ -23,7 +24,7 @@
         android:id="@+id/rvAnimeCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/rv_item_explore"/>
 
@@ -47,6 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <ImageView
@@ -64,8 +66,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/errorMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical">
 

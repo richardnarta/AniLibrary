@@ -23,7 +23,6 @@ import com.example.anilibrary.viewmodel.ExploreViewModel
 import com.example.anilibrary.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
-
 class ExploreFragment : Fragment() {
 
     private var _binding: FragmentExploreBinding? = null
@@ -42,7 +41,6 @@ class ExploreFragment : Fragment() {
 
     private lateinit var reloadButton: Button
     private lateinit var welcomeScreen: LinearLayout
-    private var firstInput = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -90,11 +88,13 @@ class ExploreFragment : Fragment() {
     }
 
     private fun loadingView(){
+        welcomeScreen.isVisible = viewModel.firstInput.value!! && animeAdapter.itemCount == 0
         animeAdapter.addLoadStateListener { state->
+            welcomeScreen.isVisible = viewModel.firstInput.value!!
             binding.shimmerView.isVisible = state.source.refresh is LoadState.Loading
             loadingRecyclerView.isVisible = state.source.refresh is LoadState.Loading
+            binding.errorMessage.isVisible = state.source.refresh is LoadState.Error
             recyclerView.isVisible = state.source.refresh is LoadState.NotLoading && animeAdapter.itemCount > 0
-            welcomeScreen.isVisible = state.source.refresh is LoadState.NotLoading && firstInput
         }
 
         reloadButton.setOnClickListener {
@@ -119,7 +119,7 @@ class ExploreFragment : Fragment() {
                     recyclerView.scrollToPosition(0)
                     viewModel.searchAnime(query)
                     searchBar.clearFocus()
-                    firstInput = false
+                    viewModel.firstInput.value = false
                 }
                 return false
             }

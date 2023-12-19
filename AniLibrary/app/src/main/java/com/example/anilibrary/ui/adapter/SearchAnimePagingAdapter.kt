@@ -37,7 +37,6 @@ class SearchAnimePagingAdapter(private val fragment:ExploreFragment): PagingData
         holder.binding.apply {
             Glide.with(holder.itemView.context)
                 .load(currentAnime?.mainPicture?.large)
-                .apply(RequestOptions().override(169, 500))
                 .transition(DrawableTransitionOptions.withCrossFade()).centerInside()
                 .into(ivImg)
 

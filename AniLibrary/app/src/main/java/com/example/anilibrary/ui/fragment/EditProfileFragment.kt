@@ -1,9 +1,7 @@
 package com.example.anilibrary.ui.fragment
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +21,6 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.ui.graphics.Color
 import androidx.core.content.FileProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.database.DataSnapshot
@@ -33,15 +30,12 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
 import java.io.File
 import com.bumptech.glide.Glide
-import com.example.anilibrary.R
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
 
 class EditProfileFragment : Fragment() {
 

@@ -38,7 +38,6 @@ class SeasonAnimePagingAdapter(private val fragment: HomeFragment): PagingDataAd
         holder.binding.apply {
             Glide.with(holder.itemView.context)
                 .load(currentAnime?.mainPicture?.large)
-                .apply(RequestOptions().override(200, 500))
                 .transition(DrawableTransitionOptions.withCrossFade()).centerInside()
                 .into(ivImg)
 

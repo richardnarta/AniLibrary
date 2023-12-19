@@ -1,6 +1,5 @@
 package com.example.anilibrary.model.data.pagination
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.anilibrary.model.data.pojo.AnimeData

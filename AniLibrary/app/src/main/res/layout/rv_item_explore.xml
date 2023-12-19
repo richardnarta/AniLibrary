@@ -139,6 +139,7 @@
                             android:fontFamily="sans-serif"
                             android:maxLines="1"
                             tools:text="★ 8.06"
+                            android:textColor="@color/orange"
                             android:textSize="26sp"/>
                     </LinearLayout>
                 </LinearLayout>

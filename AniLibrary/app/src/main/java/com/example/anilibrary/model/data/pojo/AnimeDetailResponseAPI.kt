@@ -48,3 +48,46 @@ data class AnimeDetailResponseAPI(
     @SerializedName("studios")
     var studio : ArrayList<AnimeStudio>? = arrayListOf()
 )
+
+data class AnimeMainPicture(
+    @SerializedName("medium")
+    var medium : String? = null,
+
+    @SerializedName("large")
+    var large  : String? = null
+)
+
+data class AnimeAlternateTitle(
+    @SerializedName("synonyms")
+    var synonym : ArrayList<String>? = arrayListOf(),
+
+    @SerializedName("en")
+    var en : String? = null,
+
+    @SerializedName("ja")
+    var ja : String? = null
+)
+
+data class AnimeGenre(
+    @SerializedName("id")
+    var id : Int? = null,
+
+    @SerializedName("name")
+    var name : String? = null
+)
+
+data class AnimeSeason(
+    @SerializedName("year")
+    var year : Int? = null,
+
+    @SerializedName("season")
+    var season : String? = null
+)
+
+data class AnimeStudio(
+    @SerializedName("id")
+    var id : Int? = null,
+
+    @SerializedName("name")
+    var name : String? = null
+)

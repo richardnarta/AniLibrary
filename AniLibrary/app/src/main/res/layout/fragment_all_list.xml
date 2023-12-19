@@ -14,6 +14,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="10dp"
         app:queryHint="Search Your List"
+        app:queryBackground="@android:color/transparent"
         android:background="@drawable/rounded_rect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

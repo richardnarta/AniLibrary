@@ -13,6 +13,7 @@
         app:iconifiedByDefault="false"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="10dp"
+        app:queryBackground="@android:color/transparent"
         app:queryHint="Search Your List"
         android:background="@drawable/rounded_rect"
         android:layout_width="match_parent"

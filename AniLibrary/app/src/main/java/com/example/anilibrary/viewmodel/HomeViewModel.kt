@@ -1,19 +1,15 @@
 package com.example.anilibrary.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.example.anilibrary.di.Injection
 import com.example.anilibrary.model.data.repository.SeasonAnimeRepository
-import com.example.anilibrary.ui.fragment.HomeFragment
 
 class HomeViewModel(seasonAnimeRepository: SeasonAnimeRepository): ViewModel() {
 
-    val default= arrayOf("fall", "2023")
+    val default= arrayOf("Fall", "2023")
     private val defaultYear = arrayOf(2023, 2022)
     private val defaultSeason = arrayOf("Fall", "Summer", "Spring", "Winter")
     val currentSeason = MutableLiveData(default)
