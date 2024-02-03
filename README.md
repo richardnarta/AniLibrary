@@ -6,7 +6,7 @@ AniLibrary, crafted by Transcendent, is a user-friendly mobile application dedic
 
 The app’s unique edge lies in its consolidation of anime-related content, eliminating the need to shuffle between various websites for updates. Whether it’s staying current with seasonal anime, exploring detailed information on your favorite series, or managing your anime journey, AniLibrary is your all-encompassing gateway to the vibrant and ever-evolving universe of anime. Embracing the MVVM architecture, AniLibrary ensures a seamless and independent interaction between its user interface and underlying logic, facilitating an enjoyable and personalized anime exploration journey.
 
-[Download the app here. (Google Drive)](https://drive.google.com/drive/folders/1RmIQgCIg-_VX-Xl37YjNNwO0A8-WP2dv?usp=sharing)
+[Download the app here. (Google Drive)](https://drive.google.com/drive/folders/1OVOkPtJ8sWKLF3c_GoZiTfaE0Ta447pr?usp=drive_link)
 
 ## Project Team
 - Rayhan Ahmad Rizalullah [121140002] [@ray-ahmad](https://github.com/ray-ahmad)
