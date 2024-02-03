@@ -135,10 +135,12 @@ class HomeFragment : Fragment() {
         }
 
         fun bindYear() {
-            if (season[0] == "Fall") {
-                for (i in 0..3) {
+            if (season[0] == "Winter") {
+                seasonWithYear[0][0] = season[0]
+                seasonWithYear[0][1] = year1.toString()
+                for (i in 1..3) {
                     seasonWithYear[i][0] = season[i]
-                    seasonWithYear[i][1] = year1.toString()
+                    seasonWithYear[i][1] = year2.toString()
                 }
             } else {
                 val currentIndex = season.indexOf("Fall")
@@ -182,8 +184,8 @@ class HomeFragment : Fragment() {
                         updatedPosition = updateSeason(position)
                         spinner.setSelection(updatedPosition)
                         updateSeasonViewModel(updatedPosition)
-                    } else if (itemAdapter[0].contains("Fall 2023")) {
-                        if (seasonTitle.text != "Summer - 2023"){
+                    } else if (itemAdapter[0].contains("Winter 2024")) {
+                        if (seasonTitle.text != "Fall - 2023"){
                             updateSeasonViewModel(1)
                         }
                     }
@@ -204,7 +206,7 @@ class HomeFragment : Fragment() {
                     for (i in 0 ..pos-2) {
                         seasonTemp.add(season[i])
                     }
-                    if(seasonTemp[0] == "Fall" || (seasonTemp[3] == "Fall" && pos == 3)) {
+                    if(seasonTemp[0] == "Summer" || (seasonTemp[3] == "Summer" && pos == 3)) {
                         year1-=1
                         year2-=1
                     }
@@ -212,12 +214,12 @@ class HomeFragment : Fragment() {
                     viewModel.season.value = season
                     viewModel.year.value = arrayOf(year1, year2)
                     position = 1
-                } else if (pos<1 && !itemAdapter[pos].contains("Fall 2023")) {
+                } else if (pos<1 && !itemAdapter[pos].contains("Winter 2024")) {
                     seasonTemp.add(season[3])
                     for (i in 0..2) {
                         seasonTemp.add(season[i])
                     }
-                    if(seasonTemp[3] == "Spring") {
+                    if(seasonTemp[3] == "Winter") {
                         year1+=1
                         year2+=1
                     }

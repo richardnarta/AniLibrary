@@ -9,9 +9,9 @@ import com.example.anilibrary.model.data.repository.SeasonAnimeRepository
 
 class HomeViewModel(seasonAnimeRepository: SeasonAnimeRepository): ViewModel() {
 
-    val default= arrayOf("Fall", "2023")
-    private val defaultYear = arrayOf(2023, 2022)
-    private val defaultSeason = arrayOf("Fall", "Summer", "Spring", "Winter")
+    val default= arrayOf("Winter", "2024")
+    private val defaultYear = arrayOf(2024, 2023)
+    private val defaultSeason = arrayOf("Winter", "Fall", "Summer", "Spring")
     val currentSeason = MutableLiveData(default)
     var season = MutableLiveData(defaultSeason)
     val year = MutableLiveData(defaultYear)
